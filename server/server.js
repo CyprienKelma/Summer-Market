@@ -1,13 +1,19 @@
-const express = require('express');
+const express = require("express");
+const dotenv = require("dotenv").config();
+
+// const errorHandler = require("./middleware/errorHandler");
+// const connectDb = require("./config/dbConnection");
+
+//connectDb();
 const app = express();
 
-app.use("/users", require("./routes/users"));
+const port = process.env.PORT || 5001;
 
+app.use(express.json());
+app.use("/api/users", require("./routes/usersRoutes"));
+// app.use("/api/cards", require("./routes/cardsRoutes"));
+// app.use(errorHandler);
 
-app.get('/', (req, res) => {
-    res.send("Hello World");
-});
-
-app.listen(3000, () => {
-    console.log("Server is running well on port 3000");
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
 });
