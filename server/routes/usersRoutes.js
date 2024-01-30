@@ -1,19 +1,14 @@
 const express = require('express');
 const router = express.Router();
+const { getUsers, getUserById } = require('../controllers/usersController');
 
 // Path: server/routes/usersRoutes.js
 
 // Get all users
-router.route('/').get((req, res) => {
-    res.status(200).json({ message: "Get all users" });
-});
+router.route('/').get(getUsers);
 
 // Get an user by id
-router.route('/:id').get((req, res) => {
-    res.status(200).json({ 
-        message: "Get user with id of " + req.params.id 
-    });
-});
+router.route('/:id').get(getUserById);
 
 // Create an user
 router.route('/').post((req, res) => {
