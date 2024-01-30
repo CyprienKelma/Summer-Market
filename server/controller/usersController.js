@@ -1,9 +1,15 @@
 const User = require('../models/userModel');
+const { createAnUser, getAllUsers, findOneById } = require('../models/userModel');
+
 
 
 const asyncHandler = (fn) => (req, res, next) =>
   Promise.resolve(fn(req, res, next)).catch((err) => {
     console.error(err);
+
+    console.error(err.message);
+    console.error(err.stack);
+
     res.status(500).json({ message: 'Internal Server Error' });
 });
 
@@ -12,35 +18,47 @@ const asyncHandler = (fn) => (req, res, next) =>
 //@route GET /api/users
 //@access Public
 const getUsers = asyncHandler(async (req, res) => {
-const users = await User.find({});
-res.json(users);
+    try {
+        const users = await getAllUsers();
+        res.json(users);
+      } catch (e) {
+        console.error(e);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
 });
+
 
 //@desc Get user by id
 //@route GET /api/users/:id
 //@access Public
 const getUserById = asyncHandler(async (req, res, next) => {
-const user = await User.findById(req.params.id);
-if (user) {
-    res.json(user);
-} else {
-    const error = new Error('User not found');
-    error.status = 404;
-    next(error);
-}
-});
+    try {
+        const actualId = req.params.id;
+        const user = await User.findOneById(actualId);
+        if (user) {
+            res.json(user);
+      } else {
+        const error = new Error('User not found ' + actualId);
+        error.status = 404;
+        next(error);
+      }
+    } catch (error) {
+      console.error(error); // Affiche l'erreur dans la console
+      next(error);
+    }
+  });
 
 //@desc Create a user
 //@route POST /api/users
 //@access Public
 const createUser = asyncHandler(async (req, res, next) => {
-try {
-    const { name, email, password } = req.body;
-    const userId = await User.createAnUser(name, email, password);
-    res.status(201).json({ message: 'User created', userId });
-} catch (e) {
-    next(e);
-}
+    try {
+        const { name, email, password } = req.body;
+        const userId = await User.createAnUser(name, email, password);
+        res.status(201).json({ message: 'User created', userId });
+    } catch (e) {
+        next(e); 
+    }
 });
 
 //@desc Update a user

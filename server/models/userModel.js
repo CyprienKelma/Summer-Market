@@ -36,7 +36,33 @@ async function createAnUser(name, email, password) {
   }
 }
 
+// Fonction pour récupérer tout les utilisateurs
+async function getAllUsers() {
+  try {
+    const db = client.db();
+    const users = await db.collection("users").find({}).toArray();
+    return {users};
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+}
+
+// Fonction pour récupérer un utilisateur par son id
+async function findOneById(id) {
+  try {
+    const db = client.db();
+    const user = await db.collection("users").findOne({ _id: id });
+    return user;
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+}
+
 // Exporter la fonction
 module.exports = {
-  createAnUser
+  createAnUser,
+  getAllUsers,
+  findOneById
 };
