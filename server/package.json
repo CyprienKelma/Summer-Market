@@ -1,0 +1,21 @@
+{
+    "name": "my-supermarket-app",
+    "version": "1.0.0",
+    "description": "Supermarket Scanner App - Backend",
+    "main": "server.js",
+    "scripts": {
+        "start": "node server.js",
+        "dev": "nodemon server.js"
+    },
+    "keywords": [
+        "express",
+        "mongodb",
+        "supermarket",
+        "scanner"
+    ],
+    "author": "Cyprien Kelma",
+    "license": "MIT",
+    "dependencies": {
+        "express": "^4.17.1"
+    }
+}

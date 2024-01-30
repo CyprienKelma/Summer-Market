@@ -1,4 +1,10 @@
-const express = require('express');
+const express = require("express");
+const dotenv = require("dotenv").config();
+
+// const errorHandler = require("./middleware/errorHandler");
+// const connectDb = require("./config/dbConnection");
+
+//connectDb();
 const { MongoClient } = require('mongodb');
 require('dotenv').config();
 console.log(process.env.MONGO_URI); 
