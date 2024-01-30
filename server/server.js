@@ -4,7 +4,6 @@ const { connectDB } = require("./config/db"); // Importer la fonction de connexi
 const productRoutes = require('./routes/productRoutes');; // Assurez-vous que le chemin est correct
 const stockRoutes = require("./routes/stockRoutes"); // Assurez-vous que le chemin d'accès est correct
 
-
 const app = express();
 const port = process.env.PORT || 5001;
 
