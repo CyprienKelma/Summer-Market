@@ -2,7 +2,7 @@ const User = require('../models/userModel');
 const { ObjectId } = require('mongodb');
 const { createAnUser, getAllUsers, findOneById, client } = require('../models/userModel');
 const Product = require('../models/productModel'); // Assurez-vous que le chemin d'accès est correct
-
+const { adjustStockQuantity } = require('../models/stockModel');
 
 
 
@@ -159,6 +159,7 @@ const addProductToCart = asyncHandler(async (req, res, next) => {
     }
 
     res.json({ message: 'Product added to cart', productId });
+    await adjustStockQuantity(productId, -1);
   } catch (e) {
     next(e);
   }
