@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { getUsers, getUserById } = require('../controller/usersController');
+const { getUsers, getUserById, createUser, updateUser, deleteUser } = require('../controller/usersController');
 
 // Path: server/routes/usersRoutes.js
 
@@ -11,24 +11,12 @@ router.route('/').get(getUsers);
 router.route('/:id').get(getUserById);
 
 // Create an user
-router.route('/').post((req, res) => {
-    res.status(200).json({ 
-        message: "Create an user" 
-    });
-});
+router.route('/').post(createUser);
 
 // Update an user
-router.route('/:id').put((req, res) => {
-    res.status(200).json({ 
-        message: "Update the user with id of " + req.params.id 
-    });
-});
+router.route('/:id').put(updateUser);
 
 // Delete an user
-router.route('/:id').delete((req, res) => {
-    res.status(200).json({ 
-        message: "Delete the user with id of " + req.params.id 
-    });
-});
+router.route('/:id').delete(deleteUser);
 
 module.exports = router;
