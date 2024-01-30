@@ -1,4 +1,5 @@
 const User = require('../models/userModel');
+const { ObjectId } = require('mongodb');
 const { createAnUser, getAllUsers, findOneById } = require('../models/userModel');
 
 
@@ -34,7 +35,7 @@ const getUsers = asyncHandler(async (req, res) => {
 const getUserById = asyncHandler(async (req, res, next) => {
     try {
         const actualId = req.params.id;
-        const user = await User.findOneById(actualId);
+        const user = await User.findOneById(new ObjectId(actualId));
         if (user) {
             res.json(user);
       } else {

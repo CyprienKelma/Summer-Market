@@ -18,7 +18,7 @@ async function connectToDatabase() {
   }
 }
 
-// Appeler la fonction de connexion
+// Appele la fonction de connexion
 connectToDatabase();
 
 // Fonction pour créer un utilisateur
@@ -52,7 +52,8 @@ async function getAllUsers() {
 async function findOneById(id) {
   try {
     const db = client.db();
-    const user = await db.collection("users").findOne({ _id: id });
+    const { ObjectId } = require('mongodb');
+    const user = await db.collection("users").findOne({ _id: new ObjectId(id) });
     return user;
   } catch (e) {
     console.error(e);
