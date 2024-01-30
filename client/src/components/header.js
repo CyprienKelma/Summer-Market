@@ -62,7 +62,6 @@ export default function Header() {
                 onClose={handleClose}
               >
                 <MenuItem onClick={handleClose}>Admin</MenuItem>
-                <MenuItem onClick={handleClose}>Vendeur</MenuItem>
               </Menu>
             </div>
           </Toolbar>

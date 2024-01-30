@@ -10,57 +10,46 @@ const buttonWidth = '200px'; // Vous pouvez ajuster cette valeur selon vos besoi
 const Order = () => {
   const { cartItems, addToCart } = useCart();
   const [showScanner, setShowScanner] = useState(false);
-  const [scannedItems, setScannedItems] = useState([]);
 
   const handleScannedData = (data) => {
-    setScannedItems(prevItems => [...prevItems, data]);
     setShowScanner(false); // Cache le scanner après le scan
     addToCart(data);
   };
 
+  // Accéder au dernier élément scanné
+  const lastScannedItem = cartItems[cartItems.length - 1];
+
+  const handleCloseScanner = () => {
+    setShowScanner(false);
+  };
+
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', height: 'calc(100vh - 250px)', alignItems: 'center', marginTop: '3px', background: '#f5f5f5'}}>
-      {/* Section pour afficher les articles scannés avec un scroll */}
-      <Box sx={{ overflowY: 'auto', flexGrow: 1 }}>
-      {scannedItems.map((item, index) => (
-        <div key={index} style={{ display: 'flex', alignItems: 'center', marginTop: '10px', border: '2px solid #e0e0e0'}}>
-          <img src={item.image} alt={`Article ${index}`} style={{ maxWidth: '100px', marginRight: '10px' }} />
+      {/* Affichage du dernier article scanné */}
+      {lastScannedItem && (
+        <div style={{ textAlign: 'center', marginTop: '20px' }}>
+          <h2>Dernier article scanné :</h2>
+          <img src={lastScannedItem.image} alt={`Article`} style={{ maxWidth: '300px', maxHeight: '300px' }} />
           <div>
-            <p>Nom: {item.nom}</p>
-            <p>Prix: {item.prix}</p>
+            <p><strong>Nom:</strong> {lastScannedItem.nom}</p>
+            <p><strong>Prix:</strong> {lastScannedItem.prix}</p>
           </div>
         </div>
-      ))}
-    </Box>
-      <Box
-      sx={{
-        position: 'absolute',
-        bottom: '70px',
-        left: 0,
-        right: 0,
-        width: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        '& > *': {
-          m: 1,
-        },
-      }}
-      >
-      {showScanner && <Scanner onScan={handleScannedData} />}
-      <Button
-        variant="outlined"
-        sx={{ width: buttonWidth, mb: 2 }}
-        onClick={() => setShowScanner(true)}
-      >
-        Scan article
-      </Button>
-      <Button variant="outlined" sx={{ width: buttonWidth }}>
-        Payer panier
-      </Button>
-    </Box>
+      )}
+
+      {/* Boutons et scanner */}
+      <Box sx={{ position: 'absolute', bottom: '60px', left: 0, right: 0, width: '100%', display: 'flex', background: '#f5f5f5', flexDirection: 'column', alignItems: 'center', '& > *': { m: 1 }}}>
+        {showScanner && <Scanner onScan={handleScannedData} onClose={handleCloseScanner} />}
+        <Button variant="outlined" sx={{ width: buttonWidth, mb: 2 }} onClick={() => setShowScanner(true)}>
+          Scan article
+        </Button>
+        <Button variant="outlined" sx={{ width: buttonWidth }}>
+          Payer panier
+        </Button>
+      </Box>
     </Box>
   );
 };
+
 
 export default Order;

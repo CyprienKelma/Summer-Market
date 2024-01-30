@@ -32,11 +32,12 @@ const Items = () => {
       <Box
       sx={{
         position: 'absolute',
-        bottom: '70px',
+        bottom: '60px',
         left: 0,
         right: 0,
         width: '100%',
         display: 'flex',
+        background: '#f5f5f5',
         flexDirection: 'column',
         alignItems: 'center',
         '& > *': {
@@ -45,7 +46,7 @@ const Items = () => {
       }}
       >
         {/* Affichage du total */}
-        <div style={{ textAlign: 'center', marginTop: '10px' }}>
+        <div style={{ textAlign: 'center', marginTop: '10px'}}>
             <p>Total: {calculateTotal()} €</p>
         </div>
         <Button variant="outlined" sx={{ width: '200px' }}>

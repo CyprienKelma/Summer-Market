@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import QrScanner from 'qr-scanner';
 
-const Scanner = ({ onScan }) => {
+const Scanner = ({ onScan, onClose }) => {
     const videoRef = useRef();
     const [scanned, setScanned] = useState(false);
     
@@ -23,9 +23,10 @@ const Scanner = ({ onScan }) => {
     
       return (
         <div className="qr-code-scanner-container">
-          <video ref={videoRef} className="qr-code-video" />
+            <video ref={videoRef} className="qr-code-video" />
+            <button onClick={onClose} className="close-scanner-button">X</button>
         </div>
-      );
+    );
   };
   
   export default Scanner;

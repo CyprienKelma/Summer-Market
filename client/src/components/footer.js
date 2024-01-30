@@ -29,7 +29,7 @@ export default function Footer() {
   return (
     <div className="app-container"> {/* Ajoutez une div pour encapsuler le contenu */}
 
-      <BottomNavigation sx={{ width: '100%', position: 'fixed', bottom: 0 }} value={value} onChange={handleChange} className="footer">
+      <BottomNavigation sx={{ width: '100%', position: 'fixed', bottom: 0}} value={value} onChange={handleChange} className="footer">
         <BottomNavigationAction
           label="New Order"
           value="NewOrder"
