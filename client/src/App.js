@@ -5,6 +5,7 @@ import Footer from './components/footer';
 import Header from './components/header';
 import Order from './components/order';
 import Items from './components/items';
+import Register from './components/register';
 import { CartProvider } from './components/CartContext';
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
       <Routes>
         <Route path="/order" element={<Order scannedItems={scannedItems} setScannedItems={setScannedItems} />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/items" element={<Items scannedItems={scannedItems} />} />
       </Routes>
       </CartProvider>

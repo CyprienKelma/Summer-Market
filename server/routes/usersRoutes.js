@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { getUsers, getUserById, createUser, updateUser, deleteUser, updateUserWallet, addProductToCart, removeProductFromCart } = require('../controller/usersController');
 
+
 // Get all users
 router.get('/', getUsers);
 
