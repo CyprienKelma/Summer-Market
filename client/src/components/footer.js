@@ -4,14 +4,27 @@ import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
 import AccountCircle from '@mui/icons-material/AccountCircle';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function Footer() {
-  const [value, setValue] = React.useState('recents');
+    const navigate = useNavigate();
+    const [value, setValue] = React.useState('recents');
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+        switch (newValue) {
+        case 'NewOrder':
+            navigate("/order");
+            break;
+        // case 'Items':
+        //   navigate("/items");
+        //   break;
+        // case 'Account':
+        //   navigate("/account");
+        //   break;
+        }
+    };
 
   return (
     <div className="app-container"> {/* Ajoutez une div pour encapsuler le contenu */}
