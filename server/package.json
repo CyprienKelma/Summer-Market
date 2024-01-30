@@ -16,6 +16,13 @@
     "author": "Cyprien Kelma",
     "license": "MIT",
     "dependencies": {
-        "express": "^4.17.1"
+        "all": "^0.0.0",
+        "axios": "^1.6.7",
+        "bcrypt": "^5.1.1",
+        "cors": "^2.8.5",
+        "dotenv": "^16.4.1",
+        "express": "^4.17.1",
+        "mongodb": "^6.3.0",
+        "nodemon": "^3.0.3"
     }
 }

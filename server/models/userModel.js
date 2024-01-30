@@ -35,6 +35,7 @@ async function createAnUser(name, email, password) {
   
   try {
     const db = client.db(); // Utiliser la base de données par défaut
+    // Insère le nouvel utilisateur dans la collection "users" de la db :
     const result = await db.collection("users").insertOne(newUser); // Utiliser la collection "users"
     return result.insertedId;
   } catch (e) {
