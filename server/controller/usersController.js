@@ -1,6 +1,8 @@
 const User = require('../models/userModel');
 const { ObjectId } = require('mongodb');
-const { createAnUser, getAllUsers, findOneById } = require('../models/userModel');
+const { createAnUser, getAllUsers, findOneById, client } = require('../models/userModel');
+const Product = require('../models/productModel'); // Assurez-vous que le chemin d'accès est correct
+
 
 
 
@@ -129,18 +131,39 @@ const addProductToCart = asyncHandler(async (req, res, next) => {
     const { productId } = req.body; // ID du produit à ajouter
 
     const db = client.db();
-    const updatedUser = await db.collection("users").updateOne(
+    const productCollection = db.collection('products');
+    const userCollection = db.collection('users');
+
+    // Vérifiez si le produit existe
+    const productExists = await productCollection.findOne({ _id: new ObjectId(productId) });
+
+    if (!productExists) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+
+    // Vérifiez si l'utilisateur existe
+    const userExists = await userCollection.findOne({ _id: new ObjectId(userId) });
+
+    if (!userExists) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Ajoutez le produit au panier de l'utilisateur
+    const updatedUser = await userCollection.updateOne(
       { _id: new ObjectId(userId) },
-      { $push: { cart: productId } }
+      { $addToSet: { cart: productId } } // Utilisez $addToSet pour éviter les doublons
     );
 
-    if (updatedUser.modifiedCount === 0) throw new Error("User not found or product already in cart");
+    if (updatedUser.modifiedCount === 0) {
+      throw new Error("Product not added to cart");
+    }
 
     res.json({ message: 'Product added to cart', productId });
   } catch (e) {
     next(e);
   }
 });
+
 
 const removeProductFromCart = asyncHandler(async (req, res, next) => {
   try {

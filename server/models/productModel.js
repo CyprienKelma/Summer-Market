@@ -94,5 +94,6 @@ module.exports = {
   findOneById,
   getTheWholeStock,
   addNewProduct,
-  deleteAProduct
+  deleteAProduct,
+  client
 };
