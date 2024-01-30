@@ -17,8 +17,8 @@ export default function Footer() {
         case 'NewOrder':
             navigate("/order");
             break;
-        // case 'Items':
-        //   navigate("/items");
+        case 'Items':
+            navigate("/items");
         //   break;
         // case 'Account':
         //   navigate("/account");
