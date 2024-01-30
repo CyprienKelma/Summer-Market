@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { getUsers, getUserById } = require('../controllers/usersController');
+const { getUsers, getUserById } = require('../controller/usersController');
 
 // Path: server/routes/usersRoutes.js
 
