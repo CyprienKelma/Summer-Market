@@ -1,5 +1,6 @@
 const { MongoClient } = require('mongodb');
 const bcrypt = require('bcrypt');
+const { ObjectId } = require('mongodb');
 
 // Configurer les paramètres de connexion à la base de données
 const mongoURI = 'mongodb+srv://dev:dw51C9TsRCY5AsCN@cluster0.gog9niz.mongodb.net';
@@ -24,7 +25,13 @@ connectToDatabase();
 // Fonction pour créer un utilisateur
 async function createAnUser(name, email, password) {
   const hashedPassword = await bcrypt.hash(password, 10);
-  const newUser = { name, email, password: hashedPassword };
+  const newUser = { 
+    name, 
+    email, 
+    password: hashedPassword, 
+    wallet: 0, 
+    cart: []   
+  };
   
   try {
     const db = client.db(); // Utiliser la base de données par défaut
@@ -52,7 +59,6 @@ async function getAllUsers() {
 async function findOneById(id) {
   try {
     const db = client.db();
-    const { ObjectId } = require('mongodb');
     const user = await db.collection("users").findOne({ _id: new ObjectId(id) });
     return user;
   } catch (e) {
@@ -65,5 +71,6 @@ async function findOneById(id) {
 module.exports = {
   createAnUser,
   getAllUsers,
-  findOneById
+  findOneById,
+  client
 };
