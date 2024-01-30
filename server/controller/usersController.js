@@ -1,6 +1,6 @@
 const User = require('../models/userModel');
-const { createAnUser, getAllUsers, findOneById } = require('../models/userModel');
-
+const { createAnUser, getAllUsers, findOneById, client } = require('../models/userModel');
+const { ObjectId } = require('mongodb');
 
 
 const asyncHandler = (fn) => (req, res, next) =>
@@ -55,7 +55,7 @@ const createUser = asyncHandler(async (req, res, next) => {
     try {
         const { name, email, password } = req.body;
         const userId = await User.createAnUser(name, email, password);
-        res.status(201).json({ message: 'User created', userId });
+        res.status(201).json({ message: 'User created', userId, wallet: 0, cart: [] });
     } catch (e) {
         next(e); 
     }
@@ -103,4 +103,62 @@ try {
 }
 });
 
-module.exports = { getUsers, getUserById, createUser, updateUser, deleteUser };
+const updateUserWallet = asyncHandler(async (req, res, next) => {
+  try {
+    const userId = req.params.id;
+    const { wallet } = req.body; // Nouvelle valeur pour le portefeuille
+
+    const db = client.db();
+    const updatedUser = await db.collection("users").updateOne(
+      { _id: new ObjectId(userId) },
+      { $set: { wallet: wallet } }
+    );
+
+    if (updatedUser.modifiedCount === 0) throw new Error("User not found or wallet unchanged");
+
+    res.json({ message: 'Wallet updated', wallet });
+  } catch (e) {
+    next(e);
+  }
+});
+
+const addProductToCart = asyncHandler(async (req, res, next) => {
+  try {
+    const userId = req.params.id;
+    const { productId } = req.body; // ID du produit à ajouter
+
+    const db = client.db();
+    const updatedUser = await db.collection("users").updateOne(
+      { _id: new ObjectId(userId) },
+      { $push: { cart: productId } }
+    );
+
+    if (updatedUser.modifiedCount === 0) throw new Error("User not found or product already in cart");
+
+    res.json({ message: 'Product added to cart', productId });
+  } catch (e) {
+    next(e);
+  }
+});
+
+const removeProductFromCart = asyncHandler(async (req, res, next) => {
+  try {
+    const userId = req.params.id;
+    const { productId } = req.body; // ID du produit à supprimer
+
+    const db = client.db();
+    const updatedUser = await db.collection("users").updateOne(
+      { _id: new ObjectId(userId) },
+      { $pull: { cart: productId } }
+    );
+
+    if (updatedUser.modifiedCount === 0) throw new Error("User not found or product not in cart");
+
+    res.json({ message: 'Product removed from cart', productId });
+  } catch (e) {
+    next(e);
+  }
+});
+
+
+module.exports = { getUsers, getUserById, createUser, updateUser, deleteUser, updateUserWallet, addProductToCart, removeProductFromCart };
