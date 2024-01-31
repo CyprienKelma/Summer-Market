@@ -73,7 +73,7 @@ function Register() {
 
         try {
             // Utiliser Axios pour envoyer les données au serveur
-            const response = await axios.post('http://localhost:5001/api/users', {
+            const response = await axios.post('http://localhost:5001/', {
                 username,
                 email,
                 password,
