@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
+import axios from 'axios';
 
 function Register() {
     const navigate = useNavigate();
@@ -42,7 +43,7 @@ function Register() {
 
     const validateConfirmPassword = (confirmPassword) => {
         // Validation du mot de passe
-        if (confirmPassword != password) {
+        if (confirmPassword !== password) {
           setConfirmPasswordError('Le mot de passe doit être identique.');
           return false;
         }
@@ -50,7 +51,12 @@ function Register() {
         return true;
     };
 
-    const handleSignUp = () => {
+    const handleSignUp = async () => {
+
+        // tmp test :
+        console.log('Username:', username);
+        console.log('Email:', email);
+        console.log('Password:', password);
         
         if (!username || !email || !password || !confirmPassword) {
             console.log('Veuillez remplir tous les champs.');
@@ -64,6 +70,27 @@ function Register() {
         }
         console.log('Création de compte en cours... Username:', username, 'Email:', email, 'Password:', password);
         // Mettez ici la logique de création de compte avec les valeurs de `username` et `password`
+
+        try {
+            // Utiliser Axios pour envoyer les données au serveur
+            const response = await axios.post('http://localhost:5001/api/users', {
+                username,
+                email,
+                password,
+            });
+
+            if (response.data.message === 'User created') {
+                // Effectuer les actions nécessaires après l'enregistrement réussi
+                console.log('Utilisateur enregistré avec succès');
+            } else {
+                // Gérer les erreurs d'enregistrement ici
+                console.error("Échec de l'enregistrement de l'utilisateur");
+            }
+        } catch (error) {
+            // Gérer les erreurs d'enregistrement ici
+            console.error("Une erreur s'est produite lors de l'enregistrement", error);
+            console.log('Server response:', error.response);
+        }
     };
 
     return (
