@@ -65,6 +65,29 @@ app.post("/", async (req, res) => {
 });
 // *****************
 
+/*** Login requete */
+
+app.post("/login", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    // Assuming there's a method in the User model to authenticate a user
+    const user = await User.authenticateUser(email, password);
+    
+    if (user) {
+      // Here you would typically create a token or a session
+      // and return it to the client. For simplicity, we're just
+      // sending a message back.
+      res.status(200).json({ message: 'Login successful', user });
+    } else {
+      res.status(401).json({ message: 'Login failed' });
+    }
+  } catch (e) {
+    res.status(500).json({ message: "An error occurred during the login process." });
+    console.log(e);
+  }
+});
+
 
 app.use((error, req, res, next) => {
   const statusCode = error.statusCode || 500;

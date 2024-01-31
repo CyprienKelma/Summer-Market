@@ -24,11 +24,11 @@ connectToDatabase();
 
 // Fonction pour créer un utilisateur
 async function createAnUser(name, email, password) {
-  const hashedPassword = await bcrypt.hash(password, 10);
+  const hashedPassword = await bcrypt.hash(password, 10); // Add this line
   const newUser = { 
     name, 
     email, 
-    password: hashedPassword, 
+    password: hashedPassword, // Use the hashed password
     wallet: 0, 
     cart: []   
   };
@@ -68,10 +68,26 @@ async function findOneById(id) {
   }
 }
 
+async function authenticateUser(email, password) {
+  try {
+    const db = client.db();
+    const user = await db.collection("users").findOne({ email });
+    if (user && await bcrypt.compare(password, user.password)) {
+      return user; // Authenticated
+    } else {
+      return null; // Authentication failed
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+}
+
 // Exporter la fonction
 module.exports = {
   createAnUser,
   getAllUsers,
   findOneById,
+  authenticateUser,
   client
 };
