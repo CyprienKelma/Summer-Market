@@ -6,6 +6,14 @@ const productRoutes = require('./routes/productRoutes');; // Assurez-vous que le
 const stockRoutes = require("./routes/stockRoutes"); // Assurez-vous que le chemin d'accès est correct
 const User = require('./models/userModel');
 
+// Pour avoir le serveur en https :
+const https = require('https');
+const fs = require('fs');
+
+// Charge les certificats auto-signés :
+const privateKey = fs.readFileSync('certif/server.key', 'utf8');
+const certificate = fs.readFileSync('certif/server.cert', 'utf8');
+const credentials = { key: privateKey, cert: certificate };
 
 const app = express();
 const port = process.env.PORT || 5001;
@@ -15,16 +23,32 @@ app.use("/api/users", require("./routes/usersRoutes"));
 app.use('/api/products', require("./routes/productRoutes")); // Utiliser '/api/products' comme base pour les routes de produits
 app.use('/api/stock', stockRoutes);
 
+// Crée un serveur HTTPS :
+const httpsServer = https.createServer(credentials, app);
+
+
 
 // Établit la connexion à la base de données au démarrage du serveur :
-connectDB(process.env.MONGO_URI).then(() => {
-  app.listen(port, () => {
-    console.log(`Server listening on port ${port}`);
+connectDB(process.env.MONGO_URI)
+  .then(() => {
+    // Start the HTTPS server
+    httpsServer.listen(port, () => {
+      console.log(`Server is running on https://localhost:${port}`);
+    });
+  })
+  .catch(err => {
+    console.error('Database connection failed', err);
+    process.exit();
   });
-}).catch(err => {
-  console.error('Database connection failed', err);
-  process.exit();
-});
+
+// connectDB(process.env.MONGO_URI).then(() => {
+//   app.listen(port, () => {
+//     console.log(`Server listening on port ${port}`);
+//   });
+// }).catch(err => {
+//   console.error('Database connection failed', err);
+//   process.exit();
+// });
 
 
 // * **************** Add par Hugo
