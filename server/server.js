@@ -11,8 +11,8 @@ const https = require('https');
 const fs = require('fs');
 
 // Charge les certificats auto-signés :
-const privateKey = fs.readFileSync('certif/server.key', 'utf8');
-const certificate = fs.readFileSync('certif/server.cert', 'utf8');
+const privateKey = fs.readFileSync('../certif/server.key', 'utf8');
+const certificate = fs.readFileSync('../certif/server.cert', 'utf8');
 const credentials = { key: privateKey, cert: certificate };
 
 const app = express();
