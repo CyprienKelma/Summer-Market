@@ -5,6 +5,8 @@ const { connectDB } = require("./config/db"); // Importer la fonction de connexi
 const productRoutes = require('./routes/productRoutes');; // Assurez-vous que le chemin est correct
 const stockRoutes = require("./routes/stockRoutes"); // Assurez-vous que le chemin d'accès est correct
 const User = require('./models/userModel');
+const path = require('path');
+
 
 // Pour avoir le serveur en https :
 const https = require('https');
@@ -22,6 +24,15 @@ app.use(express.json());
 app.use("/api/users", require("./routes/usersRoutes"));
 app.use('/api/products', require("./routes/productRoutes")); // Utiliser '/api/products' comme base pour les routes de produits
 app.use('/api/stock', stockRoutes);
+
+
+app.use(express.static(path.join(__dirname, '../client/build')));
+
+// Handle React routing, return all requests to React app
+app.get('*', function(req, res) {
+  res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+});
+
 
 // Crée un serveur HTTPS :
 const httpsServer = https.createServer(credentials, app);
