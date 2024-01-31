@@ -22,12 +22,15 @@ function Login() {
         }
 
         try {
-            const response = await axios.post('http://localhost:5001/login', {
+            const response = await axios.post('https://10.224.1.68:5001/login', {
                 email,
                 password,
             });
 
             if (response.data.message === 'Login successful') {
+                // Stocker le token dans localStorage
+                localStorage.setItem('token', response.data.token);
+                localStorage.setItem('email', email); // Stockez l'email
                 // Perform the necessary actions after successful login
                 console.log('Connexion réussie');
                 // Redirect to home page or dashboard

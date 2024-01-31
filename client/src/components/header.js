@@ -11,21 +11,37 @@ import Menu from '@mui/material/Menu';
 
 export default function Header() {
     const [anchorEl, setAnchorEl] = React.useState(null);
+    const email = localStorage.getItem('email'); // Récupérez l'email de l'utilisateur
   
+    const isAuthenticated = () => {
+      return !!localStorage.getItem('token');
+  };
+
     const handleMenu = (event) => {
       setAnchorEl(event.currentTarget);
     };
   
+
     const handleClose = () => {
       setAnchorEl(null);
     };
   
+
+    const handleLogout = () => {
+      // Effectuez ici la logique de déconnexion
+      localStorage.removeItem('token'); // Supprimez le token de localStorage
+      localStorage.removeItem('email'); // Assurez-vous de supprimer l'email
+      handleClose(); // Fermez le menu
+      // Vous devrez peut-être rediriger l'utilisateur ou forcer une mise à jour de l'application
+  };
+
+
     return (
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static" sx={{ backgroundColor: '#dccb80' }}>
           <Toolbar>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1, color : '#3f576e'}}>
-              Summer Market
+              Summer Market {email && `: ${email}`}
             </Typography>
             <IconButton
               size="large"
@@ -62,6 +78,7 @@ export default function Header() {
                 onClose={handleClose}
               >
                 <MenuItem onClick={handleClose}>Admin</MenuItem>
+                {isAuthenticated() && (<MenuItem onClick={handleLogout}>Se déconnecter</MenuItem>)}
               </Menu>
             </div>
           </Toolbar>
