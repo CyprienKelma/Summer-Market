@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import Scanner from './scanner'; 
 import Items from './items'; 
 import { useCart } from './CartContext';
+import axios from 'axios';
 
 const buttonWidth = '200px'; // Vous pouvez ajuster cette valeur selon vos besoins
 
