@@ -187,4 +187,62 @@ const removeProductFromCart = asyncHandler(async (req, res, next) => {
 });
 
 
-module.exports = { getUsers, getUserById, createUser, updateUser, deleteUser, updateUserWallet, addProductToCart, removeProductFromCart };
+// Fonction qui vérifie le solde du portefeuille de l'utilisateur est suffisant pour acheter les produits du panier
+// et qui confirme la commande en mettant à jour le stock des utilisateurs si c'est le cas
+const finalizePayment = async (req, res, next) => {
+  try {
+    const db = client.db();
+    const userCollection = db.collection('users');
+    const productCollection = db.collection('products');
+
+    // Récupère l'utilisateur
+    const user = await userCollection.findOne({ _id: new ObjectId(userId) });
+
+    if (!user) {
+      throw new Error('User not found');
+    }
+
+    // Récupère les produits du panier de l'utilisateur
+    const products = await productCollection.find({ _id: { $in: user.cart } }).toArray();
+
+    if (products.length === 0) {
+      throw new Error('No products in cart');
+    }
+
+    // Vérifie si le solde du portefeuille est suffisant
+    const total = products.reduce((acc, product) => acc + product.price, 0);
+
+    if (total > user.wallet) {
+      throw new Error('Insufficient funds');
+    }
+
+    // Confirme la commande
+    const updatedUser = await userCollection.updateOne(
+      { _id: new ObjectId(userId) },
+      { $pull: { cart: { $in: user.cart } }, $inc: { wallet: -total } }
+    );
+
+    if (updatedUser.modifiedCount === 0) {
+      throw new Error('Order not confirmed');
+    }
+
+    // Met à jour le stock des produits
+    const updatedProducts = await productCollection.updateMany(
+      { _id: { $in: user.cart } },
+      { $inc: { stock: -1 } }
+    );
+
+    if (updatedProducts.modifiedCount === 0) {
+      throw new Error('Stock not updated');
+    }
+
+    return { message: 'Order confirmed', total };
+  } catch (e) {
+    throw e;
+  }
+};
+
+
+module.exports = { getUsers, getUserById, createUser, updateUser, 
+  deleteUser, updateUserWallet, addProductToCart, 
+  removeProductFromCart, finalizePayment };
