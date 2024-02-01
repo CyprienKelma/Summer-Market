@@ -2,7 +2,7 @@
 const Product = require('../models/productModel');
 const User = require('../models/userModel');
 const { ObjectId } = require('mongodb');
-const { createStockItem, adjustStockQuantity, getTheWholeStock } = require('../models/stockModel');
+const { createStockItem, adjustStockQuantity, getTheWholeStock} = require('../models/stockModel');
 
 
 const asyncHandler = (fn) => (req, res, next) =>
@@ -25,14 +25,22 @@ const getStockItems = asyncHandler(async (req, res, next) => {
 });
 
 const addProductToStock = asyncHandler(async (req, res, next) => {
-    try {
-      const { productId, quantity } = req.body;
-      const stockId = await createStockItem(productId, quantity);
-      res.status(201).json({ message: 'Stock item created', stockId });
-    } catch (error) {
-      res.status(400).json({ message: error.message });
-    }
-  });
+  const { productId, quantity } = req.body;
+
+  // Vous devez vérifier si le productId est valide et si le produit existe.
+  const product = await Product.findOneById(productId);
+  if (!product) {
+    return res.status(404).json({ message: 'Product not found' });
+  }
+
+  // Ensuite, mettez à jour le stock.
+  const updatedStock = await adjustStockQuantity(productId, quantity);
+  if (updatedStock.modifiedCount === 0) {
+    return res.status(500).json({ message: 'Failed to update stock' });
+  }
+
+  res.status(200).json({ message: 'Stock updated', updatedStock });
+});
 
 const updateStockOnPurchase = asyncHandler(async (req, res, next) => {
   const { productId } = req.body;

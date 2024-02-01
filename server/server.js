@@ -32,6 +32,7 @@ app.use('/api/products', require("./routes/productRoutes")); // Utiliser '/api/p
 app.use('/api/stock', stockRoutes);
 
 
+
 app.use(express.static(path.join(__dirname, '../client/build')));
 
 // Handle React routing, return all requests to React app

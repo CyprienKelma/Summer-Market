@@ -27,4 +27,7 @@ router.post('/:id/cart', addProductToCart);
 // Supprimer un produit du panier de l'utilisateur
 router.delete('/:id/cart', removeProductFromCart);
 
+// Finaliser le paiement
+router.post('/:id/finalize-payment', finalizePayment);
+
 module.exports = router;
