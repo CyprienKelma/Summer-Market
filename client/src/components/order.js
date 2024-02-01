@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import Scanner from './scanner'; 
 import Items from './items'; 
 import { useCart } from './CartContext';
+import axios from 'axios';
 
 const buttonWidth = '200px'; // Vous pouvez ajuster cette valeur selon vos besoins
 
@@ -11,9 +12,19 @@ const Order = () => {
   const { cartItems, addToCart } = useCart();
   const [showScanner, setShowScanner] = useState(false);
 
-  const handleScannedData = (data) => {
-    setShowScanner(false); // Cache le scanner après le scan
+  const handleScannedData = async (data) => {
+    setShowScanner(false);
     addToCart(data);
+    try {
+      const userId = localStorage.getItem('userId');
+      console.log('Handle');
+      await axios.post('https://10.224.1.68:5001/api/cart/add', {
+        userId,
+        item: data
+      });
+    } catch (error) {
+      console.error("Erreur lors de l'ajout de l'article au panier", error);
+    }
   };
 
   // Accéder au dernier élément scanné
@@ -29,7 +40,7 @@ const Order = () => {
       {lastScannedItem && (
         <div style={{ textAlign: 'center', marginTop: '20px' }}>
           <h2>Dernier article scanné :</h2>
-          <img src={lastScannedItem.image} alt={`Article`} style={{ maxWidth: '300px', maxHeight: '300px' }} />
+          <img src={lastScannedItem.image} alt={`Article`} style={{ maxWidth: '300px', maxHeight: '300px', maxHeight: "150px"}} />
           <div>
             <p><strong>Nom:</strong> {lastScannedItem.nom}</p>
             <p><strong>Prix:</strong> {lastScannedItem.prix}</p>

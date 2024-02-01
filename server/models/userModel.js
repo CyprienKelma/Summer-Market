@@ -83,11 +83,25 @@ async function authenticateUser(email, password) {
   }
 }
 
+async function addToCart(userId, item) {
+  try {
+    const db = client.db();
+    await db.collection("users").updateOne(
+      { _id: new ObjectId(userId) },
+      { $push: { cart: item } }
+    );
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+}
+
 // Exporter la fonction
 module.exports = {
   createAnUser,
   getAllUsers,
   findOneById,
   authenticateUser,
+  addToCart,
   client
 };

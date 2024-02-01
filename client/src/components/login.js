@@ -31,6 +31,7 @@ function Login() {
                 // Stocker le token dans localStorage
                 localStorage.setItem('token', response.data.token);
                 localStorage.setItem('email', email); // Stockez l'email
+                localStorage.setItem('userId', response.data.user._id); // Stockez l'ID de l'utilisateur
                 // Perform the necessary actions after successful login
                 console.log('Connexion réussie');
                 // Redirect to home page or dashboard

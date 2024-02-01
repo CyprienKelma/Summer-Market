@@ -5,6 +5,7 @@ const { connectDB } = require("./config/db"); // Importer la fonction de connexi
 const productRoutes = require('./routes/productRoutes');; // Assurez-vous que le chemin est correct
 const stockRoutes = require("./routes/stockRoutes"); // Assurez-vous que le chemin d'accès est correct
 const User = require('./models/userModel');
+const Product = require('./models/productModel')
 const path = require('path');
 
 
@@ -96,6 +97,20 @@ app.post("/login", async (req, res) => {
   } catch (e) {
     res.status(500).json({ message: "An error occurred during the login process." });
     console.log(e);
+  }
+});
+
+// ajout article 
+
+app.post("/api/cart/add", async (req, res) => {
+  try {
+    const { userId, item } = req.body;
+    console.log('Handle');
+    await User.addToCart(userId, item);
+    res.status(200).json({ message: "Item added to cart" });
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ message: "Error adding item to cart" });
   }
 });
 
