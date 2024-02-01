@@ -27,7 +27,6 @@ const Order = () => {
     }
   };
 
-
   // Accéder au dernier élément scanné
   const lastScannedItem = cartItems[cartItems.length - 1];
 

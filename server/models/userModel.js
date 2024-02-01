@@ -90,6 +90,7 @@ async function addToCart(userId, item) {
       { _id: new ObjectId(userId) },
       { $push: { cart: item } }
     );
+    console.log("AddCart4");
   } catch (e) {
     console.error(e);
     throw e;
