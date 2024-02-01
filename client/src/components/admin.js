@@ -26,14 +26,18 @@ const Admin = () => {
       // Gérer les erreurs ici
     }
   };
-
+  const navigateToStockManagement = () => {
+    navigate('/stock-management'); // Assurez-vous que cette route est définie dans vos routes React
+  };
   return (
     <div>
       <h2>Page Admin</h2>
       <Button variant="contained" color="primary" onClick={handleCreateQRCode}>
         Créer un QR Code
       </Button>
-      
+      <Button variant="contained" color="primary" onClick={navigateToStockManagement}>
+        Gérer le stock
+      </Button>
     </div>
   );
 };

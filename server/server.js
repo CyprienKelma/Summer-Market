@@ -13,6 +13,7 @@ const { getTheWholeStock, findOneById, createAnProduct, addNewProduct, deleteAPr
 
 
 
+
 // Pour avoir le serveur en https :
 const https = require('https');
 const fs = require('fs');
@@ -136,6 +137,10 @@ app.post("/api/cart/add", async (req, res) => {
     console.error(e);
     res.status(500).json({ message: "Error adding item to cart" });
   }
+});
+
+app.get("/api/stock",async(req,res) =>{
+console.log(AHHHHHHHHHHH);
 });
 
 

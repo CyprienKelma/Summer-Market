@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const { addProductToStock, updateStockOnPurchase } = require('../controller/stockController');
+const { getStockItems } = require('../controller/stockController');
 
+router.get('/', getStockItems); 
 // Créer un élément de stock
 router.post('/', addProductToStock);
 
