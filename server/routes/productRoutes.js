@@ -17,4 +17,7 @@ router.put('/:id', updateProduct);
 // Delete an user
 router.delete('/:id', deleteProduct);
 
+
+
+
 module.exports = router;

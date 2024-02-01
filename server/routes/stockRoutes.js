@@ -10,4 +10,7 @@ router.post('/', addProductToStock);
 // Mettre à jour le stock lors d'un achat
 router.put('/purchase', updateStockOnPurchase);
 
+router.post('/add', addProductToStock);
+
+
 module.exports = router;
