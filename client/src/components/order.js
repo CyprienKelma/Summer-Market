@@ -13,8 +13,11 @@ const Order = () => {
 
   const handleScannedData = (data) => {
     setShowScanner(false); // Cache le scanner après le scan
+    console.log(data);
     addToCart(data);
+
   };
+
 
   // Accéder au dernier élément scanné
   const lastScannedItem = cartItems[cartItems.length - 1];
