@@ -186,5 +186,26 @@ const removeProductFromCart = asyncHandler(async (req, res, next) => {
   }
 });
 
+const getUserWallet = asyncHandler(async (req, res, next) => {
+  try {
+      const { email } = req.params;
+      // Assurez-vous d'avoir une connexion à votre base de données ici.
+      const db = client.db(); // Remplacer par votre nom de base de données si nécessaire
+      const user = await db.collection('users').findOne({ email: email });
 
-module.exports = { getUsers, getUserById, createUser, updateUser, deleteUser, updateUserWallet, addProductToCart, removeProductFromCart };
+      if (user) {
+          res.json({ wallet: user.wallet });
+      } else {
+          res.status(404).json({ message: 'User not found' });
+      }
+  } catch (error) {
+      console.error(error); // Affiche l'erreur dans la console
+      next(error);
+  }
+});
+
+
+
+
+
+module.exports = { getUsers, getUserById, getUserWallet, createUser, updateUser, deleteUser, updateUserWallet, addProductToCart, removeProductFromCart };

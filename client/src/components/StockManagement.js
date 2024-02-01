@@ -8,7 +8,7 @@ const StockManagement = () => {
   useEffect(() => {
     const fetchStock = async () => {
       try {
-        const response = await axios.get('https://10.224.1.139:5001/api/stock'); // Utilisez https si c'est requis
+        const response = await axios.get('https://192.168.1.50:5001/api/stock'); // Utilisez https si c'est requis
         setStockItems(response.data);
       } catch (error) {
         console.error('Erreur lors de la récupération du stock', error);

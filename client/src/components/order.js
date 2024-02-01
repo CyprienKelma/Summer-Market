@@ -19,7 +19,7 @@ const Order = () => {
       const userId = localStorage.getItem('userId');
       console.log('Handle');
       
-      await axios.post('https://10.224.1.139:5001/api/cart/add', {
+      await axios.post('https://192.168.1.50:5001/api/cart/add', {
         userId,
         item: data
       });

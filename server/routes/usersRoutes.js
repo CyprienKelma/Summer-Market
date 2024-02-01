@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { getUsers, getUserById, createUser, updateUser, deleteUser, updateUserWallet, addProductToCart, removeProductFromCart } = require('../controller/usersController');
+const { getUsers, getUserById,getUserWallet, createUser, updateUser, deleteUser, updateUserWallet, addProductToCart, removeProductFromCart } = require('../controller/usersController');
 
 
 // Get all users
@@ -18,8 +18,8 @@ router.put('/:id', updateUser);
 // Delete an user
 router.delete('/:id', deleteUser);
 
-// Mettre à jour le portefeuille de l'utilisateur
-router.put('/:id/wallet', updateUserWallet);
+// Get user wallet by id
+router.get('/wallet/:email', getUserWallet);
 
 // Ajouter un produit au panier de l'utilisateur
 router.post('/:id/cart', addProductToCart);
