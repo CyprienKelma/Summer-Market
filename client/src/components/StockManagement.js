@@ -35,7 +35,7 @@ const StockManagement = () => {
       const handleAddStock = async (e) => {
         e.preventDefault();
         try {
-          await axios.post('/api/stock/add', {
+          await axios.post('https://10.224.1.139:5001/api/stock/add', {
             productId: selectedProduct,
             quantity: Number(quantityToAdd)
           });
