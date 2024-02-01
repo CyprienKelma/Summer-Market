@@ -10,6 +10,7 @@ import { CartProvider } from './components/CartContext';
 import Admin from './components/admin';
 import Qrcode from './components/qrcode';
 import StockManagement from './components/StockManagement';
+import MarketPlace from './components/marketplace';
 function App() {
   const [scannedItems, setScannedItems] = useState([]);
 
@@ -24,7 +25,7 @@ function App() {
         <Route path="/admin" element={<Admin />} />
         <Route path="/qrcode" element={<Qrcode />} />
         <Route path="/items" element={<Items scannedItems={scannedItems} />} />
-        <Route path="/admin" element={<Admin />} />
+        <Route path="/marketplace" element={<MarketPlace />} />
         <Route path="/stock-management" element={<StockManagement />} />
       </Routes>
       </CartProvider>

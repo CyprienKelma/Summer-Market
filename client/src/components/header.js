@@ -7,11 +7,13 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function Header() {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const email = localStorage.getItem('email'); // Récupérez l'email de l'utilisateur
+    const navigate = useNavigate();
   
     const isAuthenticated = () => {
       return !!localStorage.getItem('token');
@@ -24,6 +26,11 @@ export default function Header() {
     const handleClose = () => {
       setAnchorEl(null);
     };
+
+    const handleAdmin = () => {
+      navigate("/admin");
+      handleClose();
+    };
   
     const handleLogout = () => {
       // Effectuez ici la logique de déconnexion
@@ -31,7 +38,7 @@ export default function Header() {
       localStorage.removeItem('email'); // Assurez-vous de supprimer l'email
       handleClose(); // Fermez le menu
       // Vous devrez peut-être rediriger l'utilisateur ou forcer une mise à jour de l'application
-  };
+    };
 
     return (
       <Box sx={{ flexGrow: 1 }}>
@@ -74,7 +81,7 @@ export default function Header() {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>Admin</MenuItem>
+                <MenuItem onClick={handleAdmin}>Admin</MenuItem>
                 {isAuthenticated() && (<MenuItem onClick={handleLogout}>Se déconnecter</MenuItem>)}
               </Menu>
             </div>

@@ -57,8 +57,8 @@ const getUserById = asyncHandler(async (req, res, next) => {
 const createUser = asyncHandler(async (req, res, next) => {
     try {
         console.log("-> access to create user function in usersController.js");
-        const { name, email, password } = req.body;
-        const userId = await User.createAnUser(name, email, password);
+        const { username, email, password } = req.body;
+        const userId = await User.createAnUser(username, email, password);
         res.status(201).json({ message: 'User created', userId, wallet: 0, cart: [] });
     } catch (e) {
         next(e); 
@@ -70,10 +70,10 @@ const createUser = asyncHandler(async (req, res, next) => {
 //@access Public
 const updateUser = asyncHandler(async (req, res, next) => {
 try {
-    const { name, email, password } = req.body;
+    const { username, email, password } = req.body;
     const user = await User.findById(req.params.id);
     if (user) {
-    user.name = name;
+    user.name = username;
     user.email = email;
     user.password = password;
     const updatedUser = await user.save();
@@ -82,7 +82,7 @@ try {
     const error = new Error('User not found');
     error.status = 404;
     next(error);
-    }
+}
 } catch (e) {
     next(e);
 }

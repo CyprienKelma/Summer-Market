@@ -3,6 +3,7 @@ import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
+import Storefront from '@mui/icons-material/Storefront';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import { useNavigate } from 'react-router-dom';
 
@@ -22,7 +23,10 @@ export default function Footer() {
         //   break;
         // case 'Account':
         //   navigate("/account");
-        //   break;
+           break;
+        case 'Market-Place':
+          navigate("/marketplace");
+          break;
         }
     };
 
@@ -44,6 +48,11 @@ export default function Footer() {
           label="Account"
           value="Account"
           icon={<AccountCircle />}
+        />
+        <BottomNavigationAction
+          label="Market-Place"
+          value="Market-Place"
+          icon={<Storefront />}
         />
       </BottomNavigation>
     </div>

@@ -1,7 +1,7 @@
 // API.js
 import OpenAI from 'openai';
 
-const openai = new OpenAI({ apiKey: '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', dangerouslyAllowBrowser: true });
+const openai = new OpenAI({ apiKey: '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', dangerouslyAllowBrowser: true });
 
 export const generateProductDescription = async (productName) => {
   try {
@@ -13,7 +13,7 @@ export const generateProductDescription = async (productName) => {
       messages: [
         {"role": "system", "content": "You are a helpful assistant."},
         //Ci-dessous c'est le message à chatgpt pour qu'il génère un message
-        {"role": "user", "content": `Générer une description qui donne envie pour le produit "${productName}". S'il te plait sois le plus concis possible.`},
+        {"role": "user", "content": `Générer une description qui donne envie pour le produit "${productName}". S'il te plait fais le en deux phrases courtes.`},
       ],
       model: "gpt-3.5-turbo",
     });

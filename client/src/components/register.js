@@ -72,8 +72,9 @@ function Register() {
         // Mettez ici la logique de création de compte avec les valeurs de `username` et `password`
 
         try {
+            console.log(username)
             // Utiliser Axios pour envoyer les données au serveur
-            const response = await axios.post('https://10.224.2.12:5001/api/users', {
+            const response = await axios.post('https://localhost:5001/api/users', {
                 username,
                 email,
                 password,

@@ -45,7 +45,7 @@ const Qrcode = () => {
             // let qr =  {
 
             // }
-            const response = await axios.post('https://10.224.1.139:5001/api/products', {
+            const response = await axios.post('https://localhost:5001/api/products', {
                 image: imageUrl,
                 price: price,
                 name: itemName,
@@ -54,8 +54,7 @@ const Qrcode = () => {
             })
             
             setAppuye(false);
-
-            if (response.data === 'Product created') {
+            if (response.data.message === 'Product created') {
                 console.log('Produit enregistré avec succès');
                 setMessage('Produit enregistré avec succès');
 
