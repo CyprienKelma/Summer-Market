@@ -8,6 +8,9 @@ const User = require('./models/userModel');
 const Product = require('./models/productModel')
 const Stock = require('./models/stockModel'); 
 const path = require('path');
+const { ObjectId } = require('mongodb');
+const { getTheWholeStock, findOneById, createAnProduct, addNewProduct, deleteAProduct } = require('./models/productModel');
+
 
 
 // Pour avoir le serveur en https :
@@ -23,8 +26,8 @@ const app = express();
 const port = process.env.PORT || 5001;
 app.use(cors())
 app.use(express.json());
-app.use("/api/users", require("./routes/usersRoutes"));
-app.use('/api/products', require("./routes/productRoutes")); // Utiliser '/api/products' comme base pour les routes de produits
+//app.use("/api/users", require("./routes/usersRoutes"));
+//app.use('/api/products', require("./routes/productRoutes")); // Utiliser '/api/products' comme base pour les routes de produits
 app.use('/api/stock', stockRoutes);
 
 
@@ -65,7 +68,7 @@ connectDB(process.env.MONGO_URI)
 
 
 // * **************** Add par Hugo
-app.post("/", async (req, res) => {
+app.post("/api/users", async (req, res) => {
   try {
       console.log(req.body)
       const { username, email, password } = req.body;
@@ -74,6 +77,22 @@ app.post("/", async (req, res) => {
       res.status(201).json({ message: 'User created', userId, wallet: 0, cart: [] });
   } catch (e) {
       console.log(e); 
+  }
+});
+// *****************
+
+/*** Login requete */
+
+
+app.post("/api/products", async (req, res) => {
+  try {
+    const { image, price, name, description, qrcode } = req.body;
+    console.log( image + price + name + description + qrcode)
+    const productId = await Product.createAnProduct(image, price, name, description, qrcode);
+    res.send('Product created');
+  } catch (e) {
+    console.log("?????")
+      next(e);
   }
 });
 // *****************

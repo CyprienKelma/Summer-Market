@@ -22,7 +22,7 @@ function Login() {
         }
 
         try {
-            const response = await axios.post('https://10.224.1.68:5001/login', {
+            const response = await axios.post('https://10.224.1.139:5001/login', {
                 email,
                 password,
             });

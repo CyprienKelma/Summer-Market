@@ -21,12 +21,10 @@ export default function Header() {
       setAnchorEl(event.currentTarget);
     };
   
-
     const handleClose = () => {
       setAnchorEl(null);
     };
   
-
     const handleLogout = () => {
       // Effectuez ici la logique de déconnexion
       localStorage.removeItem('token'); // Supprimez le token de localStorage
@@ -34,7 +32,6 @@ export default function Header() {
       handleClose(); // Fermez le menu
       // Vous devrez peut-être rediriger l'utilisateur ou forcer une mise à jour de l'application
   };
-
 
     return (
       <Box sx={{ flexGrow: 1 }}>

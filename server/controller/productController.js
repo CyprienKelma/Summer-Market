@@ -50,9 +50,9 @@ const getProductById = asyncHandler(async (req, res, next) => {
 //@access Public
 const createProduct = asyncHandler(async (req, res, next) => {
 try {
-    const { name, price, photo, number } = req.body;
-    const productId = await Product.createAnProduct(name, price, photo, number);
-    res.status(201).json({ message: 'Product created : ', productId });
+    const { image, price, name, description, qrcode } = req.body;
+    const productId = await Product.createAnProduct(image, price, name, description, qrcode);
+    res.json({ message: 'Product created : ', productId });
 } catch (e) {
     next(e);
 }
@@ -63,11 +63,14 @@ try {
 //@access Public
 const updateProduct = asyncHandler(async (req, res, next) => {
 try {
-    const { name, price, photo } = req.body;
+    const { image, price, name, description, qrcode } = req.body;
     const product = await Product.findById(req.params.id);
     if (product) {
-    product.name = name;
+    product.image = image;
     product.price = price;
+    product.name = name;
+    product.description = description;
+    product.qrcode = qrcode;
     
     const updatedProduct = await product.save();
     res.json(updatedProduct);

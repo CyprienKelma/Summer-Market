@@ -23,9 +23,10 @@ async function connectToDatabase() {
 connectToDatabase();
 
 // Fonction pour créer un produit
-async function createAnProduct(name, price, photo, number) {
 
-  const newProduct = { name, price, photo, number };
+async function createAnProduct( image, price, name, description, qrcode ) {
+
+  const newProduct = { image, price, name, description, qrcode };
   
   try {
     const db = client.db();
@@ -63,8 +64,8 @@ async function getTheWholeStock() {
 }
 
 // Fonction pour ajouter un nouveau produit au stock total (collection products)
-async function addNewProduct(name, price, photo) {
-  const newProduct = { name, price, photo };
+async function addNewProduct( image, price, name, description, qrcode ) {
+  const newProduct = { image, price, name, description, qrcode };
   try {
     const db = client.db();
     const result = await db.collection("products").insertOne(newProduct);

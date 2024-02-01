@@ -18,7 +18,8 @@ const Order = () => {
     try {
       const userId = localStorage.getItem('userId');
       console.log('Handle');
-      await axios.post('https://10.224.1.68:5001/api/cart/add', {
+      
+      await axios.post('https://10.224.1.139:5001/api/cart/add', {
         userId,
         item: data
       });
@@ -26,6 +27,7 @@ const Order = () => {
       console.error("Erreur lors de l'ajout de l'article au panier", error);
     }
   };
+
 
   // Accéder au dernier élément scanné
   const lastScannedItem = cartItems[cartItems.length - 1];
