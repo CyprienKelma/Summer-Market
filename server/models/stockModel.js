@@ -1,5 +1,5 @@
 const { ObjectId } = require('mongodb');
-const { client } = require('./userModel'); // Assurez-vous que le chemin est correct
+const { client } = require('./userModel'); // Assurez-vous que le chemin est correct  
 
 async function createStockItem(productId, quantity) {
   const db = client.db();
@@ -41,7 +41,23 @@ async function adjustStockQuantity(productId, adjustBy) {
   }
 }
 
+async function decreaseQuantity(productId) {
+  try {
+    const db = client.db();
+    const result = await db.collection("stock").updateOne(
+      { productId: new ObjectId(productId) },
+      { $inc: { quantity: -1 } }
+    );
+    return result;
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+}
+
+
 module.exports = {
   createStockItem,
+  decreaseQuantity,
   adjustStockQuantity
 };

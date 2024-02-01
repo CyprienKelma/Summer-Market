@@ -6,6 +6,7 @@ const productRoutes = require('./routes/productRoutes');; // Assurez-vous que le
 const stockRoutes = require("./routes/stockRoutes"); // Assurez-vous que le chemin d'accès est correct
 const User = require('./models/userModel');
 const Product = require('./models/productModel')
+const Stock = require('./models/stockModel'); 
 const path = require('path');
 
 
@@ -108,6 +109,10 @@ app.post("/api/cart/add", async (req, res) => {
     console.log('Handle');
     await User.addToCart(userId, item);
     res.status(200).json({ message: "Item added to cart" });
+
+    // Mettre à jour le stock
+    await Stock.decreaseQuantity(item.id);
+    
   } catch (e) {
     console.error(e);
     res.status(500).json({ message: "Error adding item to cart" });
