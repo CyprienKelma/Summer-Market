@@ -54,10 +54,41 @@ async function decreaseQuantity(productId) {
     throw e;
   }
 }
+async function getTheWholeStock() {
+  try {
+    const db = client.db();
+    const stockItems = await db.collection("stock")
+      .aggregate([
+        {
+          $lookup: {
+            from: "products", // le nom de votre collection de produits
+            localField: "productId", // la clé dans la collection de stock
+            foreignField: "_id", // la clé dans la collection de produits
+            as: "productInfo" // le nom du nouveau champ qui contiendra les informations de jointure
+          }
+        },
+        {
+          $unwind: "$productInfo" // décomposer le tableau de produits en objets
+        },
+        {
+          $project: {
+            quantity: 1,
+            "productInfo.name": 1 // inclure le nom du produit dans les résultats
+          }
+        }
+      ])
+      .toArray();
+    return stockItems;
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+}
 
 
 module.exports = {
   createStockItem,
   decreaseQuantity,
-  adjustStockQuantity
+  adjustStockQuantity,
+  getTheWholeStock
 };
