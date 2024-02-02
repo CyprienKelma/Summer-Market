@@ -186,63 +186,26 @@ const removeProductFromCart = asyncHandler(async (req, res, next) => {
   }
 });
 
-
-// Fonction qui vérifie le solde du portefeuille de l'utilisateur est suffisant pour acheter les produits du panier
-// et qui confirme la commande en mettant à jour le stock des utilisateurs si c'est le cas
-const finalizePayment = async (req, res, next) => {
+const getUserWallet = asyncHandler(async (req, res, next) => {
   try {
-    const db = client.db();
-    const userCollection = db.collection('users');
-    const productCollection = db.collection('products');
+      const { email } = req.params;
+      // Assurez-vous d'avoir une connexion à votre base de données ici.
+      const db = client.db(); // Remplacer par votre nom de base de données si nécessaire
+      const user = await db.collection('users').findOne({ email: email });
 
-    // Récupère l'utilisateur
-    const user = await userCollection.findOne({ _id: new ObjectId(userId) });
-
-    if (!user) {
-      throw new Error('User not found');
-    }
-
-    // Récupère les produits du panier de l'utilisateur
-    const products = await productCollection.find({ _id: { $in: user.cart } }).toArray();
-
-    if (products.length === 0) {
-      throw new Error('No products in cart');
-    }
-
-    // Vérifie si le solde du portefeuille est suffisant
-    const total = products.reduce((acc, product) => acc + product.price, 0);
-
-    if (total > user.wallet) {
-      throw new Error('Insufficient funds');
-    }
-
-    // Confirme la commande
-    const updatedUser = await userCollection.updateOne(
-      { _id: new ObjectId(userId) },
-      { $pull: { cart: { $in: user.cart } }, $inc: { wallet: -total } }
-    );
-
-    if (updatedUser.modifiedCount === 0) {
-      throw new Error('Order not confirmed');
-    }
-
-    // Met à jour le stock des produits
-    const updatedProducts = await productCollection.updateMany(
-      { _id: { $in: user.cart } },
-      { $inc: { stock: -1 } }
-    );
-
-    if (updatedProducts.modifiedCount === 0) {
-      throw new Error('Stock not updated');
-    }
-
-    return { message: 'Order confirmed', total };
-  } catch (e) {
-    throw e;
+      if (user) {
+          res.json({ wallet: user.wallet });
+      } else {
+          res.status(404).json({ message: 'User not found' });
+      }
+  } catch (error) {
+      console.error(error); // Affiche l'erreur dans la console
+      next(error);
   }
-};
+});
 
 
-module.exports = { getUsers, getUserById, createUser, updateUser, 
-  deleteUser, updateUserWallet, addProductToCart, 
-  removeProductFromCart, finalizePayment };
+
+
+
+module.exports = { getUsers, getUserById, getUserWallet, createUser, updateUser, deleteUser, updateUserWallet, addProductToCart, removeProductFromCart };

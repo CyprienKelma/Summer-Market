@@ -144,7 +144,6 @@ app.get("/api/stock",async(req,res) =>{
 console.log(AHHHHHHHHHHH);
 });
 
-
 app.use((error, req, res, next) => {
   const statusCode = error.statusCode || 500;
   console.error(error.message, error.stack);
