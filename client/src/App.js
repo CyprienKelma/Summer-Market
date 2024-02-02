@@ -10,6 +10,8 @@ import { CartProvider } from './components/CartContext';
 import Admin from './components/admin';
 import Qrcode from './components/qrcode';
 import StockManagement from './components/StockManagement';
+import './css/App.css';
+
 function App() {
   const [scannedItems, setScannedItems] = useState([]);
 

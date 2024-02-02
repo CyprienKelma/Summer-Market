@@ -3,6 +3,7 @@ const { MongoClient } = require('mongodb');
 let db;
 
 async function connectDB(uri) {
+  console.log("value : " + uri);
   if (db) return db;
 
   const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });

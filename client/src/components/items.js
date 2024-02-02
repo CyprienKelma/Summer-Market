@@ -16,7 +16,7 @@ const Items = () => {
   };
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', height: 'calc(100vh - 250px)', alignItems: 'center', marginTop: '3px', background: '#f5f5f5'}}>
+    <Box sx={{ background: '#EEE6D8', display: 'flex', flexDirection: 'column', height: 'calc(100vh - 250px)', alignItems: 'center', marginTop: '3px', background: '#f5f5f5'}}>
       {/* Section pour afficher les articles scannés avec un scroll */}
       <Box sx={{ overflowY: 'auto', flexGrow: 1 }}>
       {cartItems.map((item, index) => (
@@ -46,11 +46,12 @@ const Items = () => {
       }}
       >
         {/* Affichage du total */}
-        <div style={{ textAlign: 'center', marginTop: '10px'}}>
+        <div style={{ textAlign: 'center', marginTop: '10px', fontFamily: 'Verdana'}}>
             <p>Total: {calculateTotal()} €</p>
         </div>
-        <Button variant="outlined" sx={{ width: '200px' }}>
-        Valider panier 
+        <Button variant="contained" size='large' sx={{ width: { xs: '250px', md: '300px' }, 
+          height: { xs: '60px', md: '80px' }, backgroundColor: "#daab3a", bottom: { xs: '20px', md: '30px' }}}>
+          Valider le panier
         </Button>
       </Box>
     </Box>

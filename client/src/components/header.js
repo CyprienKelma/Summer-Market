@@ -35,7 +35,7 @@ export default function Header() {
 
     return (
       <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static" sx={{ backgroundColor: '#dccb80' }}>
+        <AppBar position="static" sx={{ backgroundColor: '#daab3a' }}>
           <Toolbar>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1, color : '#3f576e'}}>
               Summer Market {email && `: ${email}`}

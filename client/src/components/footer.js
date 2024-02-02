@@ -19,32 +19,42 @@ export default function Footer() {
             break;
         case 'Items':
             navigate("/items");
-        //   break;
-        // case 'Account':
-        //   navigate("/account");
-        //   break;
+            break;
+        case 'Account':
+          navigate("/account");
+          break;
         }
     };
 
   return (
-    <div className="app-container"> {/* Ajoutez une div pour encapsuler le contenu */}
+    <div className="app-container">
 
-      <BottomNavigation sx={{ width: '100%', position: 'fixed', bottom: 0}} value={value} onChange={handleChange} className="footer">
+      <BottomNavigation
+        sx={{ width: '100%', position: 'fixed', bottom: 0, backgroundColor: '#daab3a' }}
+        value={value}
+        onChange={handleChange}
+        showLabels={false}  // Assure-toi que showLabels est défini sur false pour éviter le chevauchement des labels
+        className="footer"
+      >
         <BottomNavigationAction
           label="New Order"
           value="NewOrder"
-          icon={<AddCircleOutlineIcon />}
+          icon={<AddCircleOutlineIcon sx={{ fontSize: 32 }} />}
+          sx={{ '&.Mui-selected': { color: '#2E7D32' } }}  // Change la couleur pour l'onglet actif
         />
         <BottomNavigationAction
           label="Items"
           value="Items"
-          icon={<LocalGroceryStoreIcon />}
+          icon={<LocalGroceryStoreIcon sx={{ fontSize: 32 }} />}
+          sx={{ '&.Mui-selected': { color: '#2E7D32' } }}  // Change la couleur pour l'onglet actif
         />
         <BottomNavigationAction
           label="Account"
           value="Account"
-          icon={<AccountCircle />}
+          icon={<AccountCircle sx={{ fontSize: 32 }} />}
+          sx={{ '&.Mui-selected': { color: '#2E7D32' } }}  // Change la couleur pour l'onglet actif
         />
+
       </BottomNavigation>
     </div>
   );
