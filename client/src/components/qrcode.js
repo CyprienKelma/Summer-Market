@@ -45,7 +45,7 @@ const Qrcode = () => {
             // let qr =  {
 
             // }
-            const response = await axios.post('https://10.224.1.139:5001/api/products', {
+            const response = await axios.post('https://10.224.1.68:5001/api/products', {
                 image: imageUrl,
                 price: price,
                 name: itemName,
