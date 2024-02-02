@@ -22,11 +22,11 @@ const Items = () => {
         <Box sx={{ overflowY: 'auto', flexGrow: 1, background: '#EEE6D8'}}>
           {cartItems.map((item, index) => (
             <div key={index} style={{ display: 'flex', alignItems: 'center', marginTop: '10px', marginBottom:'3px', scrollBehavior: 'smooth',
-                                      border: '2px solid #daab3a', paddingLeft: '35px', paddingRight:'35px'}}>
+                                      border: '2px solid #daab3a', paddingLeft: '60px', paddingRight:'60px', borderRadius:'2%'}}>
               <img src={item.image} alt={`Article ${index}`} style={{ maxWidth: '100px', marginRight: '10px' }} />
               <div>
-                <p>Nom: {item.nom}</p>
-                <p>Prix: {item.prix}</p>
+                <p> {item.nom}</p>
+                <p>Prix: {item.prix}€</p>
               </div>
             </div>
           ))}

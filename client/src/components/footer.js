@@ -50,18 +50,19 @@ export default function Footer() {
           label="Items"
           value="Items"
           icon={<LocalGroceryStoreIcon sx={{ fontSize: 32 }} />}
-          sx={{ '&.Mui-selected': { color: '#2E7D32' } }}  // Change la couleur pour l'onglet actif
+          sx={{ '&.Mui-selected': { color: '#2E7D32' } }}
         />
         <BottomNavigationAction
           label="Account"
           value="Account"
           icon={<AccountCircle sx={{ fontSize: 32 }} />}
-          sx={{ '&.Mui-selected': { color: '#2E7D32' } }}  // Change la couleur pour l'onglet actif
+          sx={{ '&.Mui-selected': { color: '#2E7D32' } }}  
         />
           <BottomNavigationAction
-          label="Market-Place"
+          label="Market"
           value="Market-Place"
-          icon={<Storefront />}
+          icon={<Storefront sx={{ fontSize: 32 }}/>}
+          sx={{ '&.Mui-selected': { color: '#2E7D32' } }}
         />
       </BottomNavigation>
     </div>

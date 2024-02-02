@@ -38,7 +38,9 @@ const Order = () => {
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', background: '#EEE6D8', padding: '20px', minHeight: '100vh', position: 'relative' }}>
       {!showScanner && lastScannedItem && (
-        <Card variant="outlined" sx={{ width: '100%', marginBottom: '20px', borderRadius: '10%', borderColor: '#DAAB3A', borderWidth: '5px', borderStyle: 'solid', backgroundColor: '#eee6d8' }}>
+        <Card variant="outlined" sx={{ width: '100%', marginBottom: '20px', borderRadius: '10%',
+         borderColor: '#DAAB3A', borderWidth: '5px', borderStyle: 'solid', 
+         backgroundColor: '#eee6d8', maxWidth:'400px' }}>
           <CardContent>
             <Typography variant="h6" sx={{ textAlign: 'center', fontFamily: 'Verdana'}} gutterBottom>
               Dernier article scanné :
