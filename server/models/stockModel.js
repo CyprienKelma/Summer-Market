@@ -30,12 +30,14 @@ async function createStockItem(productId, quantity) {
 // Cette fonction devrait être capable d'augmenter ou de diminuer la quantité de stock
 async function adjustStockQuantity(productId, adjustBy) {
   const db = client.db();
+
   const result = await db.collection("stock").updateOne(
     { productId: new ObjectId(productId) },
     { $inc: { quantity: adjustBy } }
   );
   return result;
 }
+
 
 async function decreaseQuantity(productId) {
   try {
@@ -81,10 +83,15 @@ async function getTheWholeStock() {
   }
 }
 
-
+async function findOneByProductId(productId) {
+  const db = client.db();
+  const stockItem = await db.collection("stock").findOne({ productId: new ObjectId(productId) });
+  return stockItem;
+}
 module.exports = {
   createStockItem,
   decreaseQuantity,
   adjustStockQuantity,
-  getTheWholeStock
+  getTheWholeStock,
+  findOneByProductId
 };
