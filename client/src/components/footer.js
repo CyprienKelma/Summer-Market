@@ -5,6 +5,7 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import { useNavigate } from 'react-router-dom';
+import Storefront from '@mui/icons-material/Storefront';  
 
 
 export default function Footer() {
@@ -22,6 +23,9 @@ export default function Footer() {
             break;
         case 'Account':
           navigate("/account");
+          break;
+        case 'Market-Place':
+          navigate("/marketplace");
           break;
         }
     };
@@ -54,7 +58,11 @@ export default function Footer() {
           icon={<AccountCircle sx={{ fontSize: 32 }} />}
           sx={{ '&.Mui-selected': { color: '#2E7D32' } }}  // Change la couleur pour l'onglet actif
         />
-
+          <BottomNavigationAction
+          label="Market-Place"
+          value="Market-Place"
+          icon={<Storefront />}
+        />
       </BottomNavigation>
     </div>
   );

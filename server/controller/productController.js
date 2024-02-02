@@ -52,7 +52,7 @@ const createProduct = asyncHandler(async (req, res, next) => {
 try {
     const { image, price, name, description, qrcode } = req.body;
     const productId = await Product.createAnProduct(image, price, name, description, qrcode);
-    res.json({ message: 'Product created : ', productId });
+    res.json({ message: 'Product created', productId });
 } catch (e) {
     next(e);
 }
