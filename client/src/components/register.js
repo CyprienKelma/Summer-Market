@@ -11,7 +11,7 @@ function Register() {
       navigate('/Login');
     }
     
-    const [username, setUsername] = useState('');
+    const [name, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -54,11 +54,11 @@ function Register() {
     const handleSignUp = async () => {
 
         // tmp test :
-        console.log('Username:', username);
+        console.log('Username:', name);
         console.log('Email:', email);
         console.log('Password:', password);
         
-        if (!username || !email || !password || !confirmPassword) {
+        if (!name || !email || !password || !confirmPassword) {
             console.log('Veuillez remplir tous les champs.');
             alert('Veuillez remplir tous les champs.')
             return;
@@ -68,13 +68,13 @@ function Register() {
             console.log('Veuillez remplir correctement tous les champs.');
             return;
         }
-        console.log('Création de compte en cours... Username:', username, 'Email:', email, 'Password:', password);
+        console.log('Création de compte en cours... Username:', name, 'Email:', email, 'Password:', password);
         // Mettez ici la logique de création de compte avec les valeurs de `username` et `password`
 
         try {
             // Utiliser Axios pour envoyer les données au serveur
-            const response = await axios.post('https://10.224.2.12:5001/api/users', {
-                username,
+            const response = await axios.post('https://10.224.1.139:5001/api/users', {
+                name,
                 email,
                 password,
             });
@@ -114,7 +114,7 @@ function Register() {
                 <TextField
                     label="Identifiant"
                     variant="outlined"
-                    value={username}
+                    value={name}
                     onChange={(e) => setUsername(e.target.value)}
                     fullWidth
                     margin="normal"

@@ -55,7 +55,7 @@ const Qrcode = () => {
             
             setAppuye(false);
 
-            if (response.data === 'Product created') {
+            if (response.data.message === 'Product created') {
                 console.log('Produit enregistré avec succès');
                 setMessage('Produit enregistré avec succès');
 

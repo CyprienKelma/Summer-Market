@@ -8,12 +8,13 @@ import MenuIcon from '@mui/icons-material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function Header() {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const email = localStorage.getItem('email'); // Récupérez l'email de l'utilisateur
-
+    const navigate = useNavigate();
     const isAuthenticated = () => {
       return !!localStorage.getItem('token');
   };
@@ -25,7 +26,10 @@ export default function Header() {
     const handleClose = () => {
       setAnchorEl(null);
     };
-  
+    const handleAdmin = () => {
+      navigate("/admin");
+      handleClose();
+    };
     const handleLogout = () => {
       // Effectuez ici la logique de déconnexion
       localStorage.removeItem('token'); // Supprimez le token de localStorage
@@ -43,7 +47,7 @@ export default function Header() {
         if (email) {
           try {
             console.log('test');
-            const response = await axios.get(`https://192.168.1.50:5001/api/users/wallet/${email}`);
+            const response = await axios.get(`https://10.224.1.139:5001/api/users/wallet/${email}`);
             console.log('Réponse de l\'API:', response.data);
             setWallet(response.data.wallet);
           } catch (error) {
@@ -97,7 +101,7 @@ export default function Header() {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>Admin</MenuItem>
+                <MenuItem onClick={handleAdmin}>Admin</MenuItem>
                 {isAuthenticated() && (<MenuItem onClick={handleLogout}>Se déconnecter</MenuItem>)}
               </Menu>
             </div>
