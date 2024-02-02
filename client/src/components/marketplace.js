@@ -12,7 +12,7 @@ const MarketPlace = () => {
     useEffect(() => {
         const fetchProducts = async () => {
           try {
-            const response = await axios.get('https://10.224.1.139:5001/api/products');
+            const response = await axios.get('https://10.224.1.68:5001/api/products');
             setProducts(response.data.products);
             setLoading(false);
           } catch (error) {

@@ -160,7 +160,7 @@ const addProductToCart = asyncHandler(async (req, res, next) => {
     }
 
     res.json({ message: 'Product added to cart', productId });
-   // await adjustStockQuantity(productId, -1);
+    await adjustStockQuantity(productId, -1);
   } catch (e) {
     next(e);
   }
