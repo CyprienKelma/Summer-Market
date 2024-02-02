@@ -1,7 +1,7 @@
 // API.js
 import OpenAI from 'openai';
 
-const openai = new OpenAI({ apiKey: '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', dangerouslyAllowBrowser: true });
+const openai = new OpenAI({ apiKey: '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', dangerouslyAllowBrowser: true });
 
 export const generateProductDescription = async (productName) => {
   try {

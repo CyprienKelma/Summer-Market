@@ -12,7 +12,7 @@ const StockManagement = () => {
     useEffect(() => {
         const fetchStock = async () => {
           try {
-            const response = await axios.get('https://10.224.1.139:5001/api/stock');
+            const response = await axios.get('https://localhost:5001/api/stock');
             setStockItems(response.data);
           } catch (error) {
             console.error('Erreur lors de la récupération du stock', error);
@@ -21,7 +21,7 @@ const StockManagement = () => {
     
         const fetchProducts = async () => {
           try {
-            const response = await axios.get('https://10.224.1.139:5001/api/products');
+            const response = await axios.get('https://localhost:5001/api/products');
             setProducts(response.data.products); // Assurez-vous que la réponse contient un tableau de produits
           } catch (error) {
             console.error('Erreur lors de la récupération des produits', error);
@@ -35,7 +35,7 @@ const StockManagement = () => {
       const handleAddStock = async (e) => {
         e.preventDefault();
         try {
-          await axios.post('https://10.224.1.139:5001/api/stock/add', {
+          await axios.post('https://localhost:5001/api/stock/add', {
             productId: selectedProduct,
             quantity: Number(quantityToAdd)
           });

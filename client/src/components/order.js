@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Scanner from './scanner';
+import Items from './items';
 import { useCart } from './CartContext';
 import axios from 'axios';
 import Typography from '@mui/material/Typography';
@@ -19,8 +20,9 @@ const Order = () => {
     addToCart(data);
     try {
       const userId = localStorage.getItem('userId');
+      console.log('Handle',data);
       
-      await axios.post('https://10.224.1.139:5001/api/cart/add', {
+      await axios.post('https://localhost:5001/api/cart/add', {
         userId,
         item: data
       });
@@ -29,7 +31,10 @@ const Order = () => {
     }
   };
 
-  const lastScannedItem = cartItems[cartItems.length - 1];
+  let lastScannedItem = cartItems[cartItems.length - 1];
+  if(lastScannedItem){
+    lastScannedItem = JSON.parse(lastScannedItem)
+  }
 
   const handleCloseScanner = () => {
     setShowScanner(false);
@@ -60,6 +65,7 @@ const Order = () => {
               }}
             />
             <div>
+              {console.log(lastScannedItem.nom)}
               <Typography variant="subtitle1" sx={{ textAlign: 'center', fontFamily: 'Verdana'}}><strong>Nom:</strong> {lastScannedItem.nom}</Typography>
               <Typography variant="subtitle1" sx={{ textAlign: 'center', fontFamily: 'Verdana'}}><strong>Prix:</strong> {lastScannedItem.prix}</Typography>
             </div>

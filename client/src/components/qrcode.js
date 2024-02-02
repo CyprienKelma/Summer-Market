@@ -14,11 +14,13 @@ const Qrcode = () => {
   const [message, setMessage] = useState('');
   const [imageUrl, setImageUrl] = useState('');
   const [price, setPrice] = useState('');
+  const [_id, set_id] = useState(null);
   const [itemName, setItemName] = useState('');
   const [productDescription, setProductDescription] = useState('');
   const [qrCodeData, setQrCodeData] = useState(null);
   const [appuye, setAppuye] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [products, setProducts] = useState([]);
 
   const handleDescriptionRequest = async () => {
     try {
@@ -45,7 +47,7 @@ const Qrcode = () => {
             // let qr =  {
 
             // }
-            const response = await axios.post('https://10.224.1.139:5001/api/products', {
+            const response = await axios.post('https://localhost:5001/api/products', {
                 image: imageUrl,
                 price: price,
                 name: itemName,
@@ -66,6 +68,9 @@ const Qrcode = () => {
                 setTimeout(() => {
                     navigate('/admin');
                 }, 3000);
+
+                fetchID();
+
             } else {
                 console.error('Échec de lenregistrement du produit');
             }
@@ -79,6 +84,61 @@ const Qrcode = () => {
     }
   }, [qrCodeData, itemName, price, imageUrl, productDescription])
 
+
+  useEffect(() => {
+
+    const updateAllQrCodeIds = async () => {
+      try {
+        const updatedProducts = products.map(async (product) => {
+          // Utiliser l'_id du produit comme nouvelle valeur pour qrcode.id
+          const newQrCodeId = product._id.toString();
+    
+          // Convertir la propriété 'qrcode' en objet JavaScript
+          product.qrcode = JSON.parse(product.qrcode);
+
+          // Mettre à jour la propriété qrcode.id du produit
+          product.qrcode.id = newQrCodeId;
+          
+          console.log('jsuis la')
+    
+          // Mettre à jour le produit dans la base de données
+          const response = await axios.put(`https://localhost:5001/api/products/:${product._id}`, {
+            qrcode: JSON.stringify(product.qrcode),
+          });
+
+    
+          if (response.data.message === 'Product updated') {
+            console.log(`Produit avec l'id ${product._id} mis à jour avec succès`);
+          } else {
+            console.error(`Échec de la mise à jour du produit avec l'id ${product._id}`);
+          }
+        });
+    
+        console.log(products)
+        // Attendre que toutes les mises à jour soient terminées
+        await Promise.all(updatedProducts);
+    
+        console.log('Tous les produits ont été mis à jour avec succès');
+      } catch (error) {
+        console.error('Erreur lors de la mise à jour des produits:', error);
+      }
+    };
+    if (products.length > 0) {
+      console.log("?")
+      updateAllQrCodeIds();
+    }
+  }, [products])
+  
+  const fetchID = async () => {
+    try {
+      const response = await axios.get('https://localhost:5001/api/products');
+      setProducts(response.data.products); // Assurez-vous que la réponse contient un tableau de produits
+      console.log(response.data.products)
+    } catch (error) {
+      console.error('Erreur lors de la récupération des produits', error);
+    }
+  };
+
   const handleSetPrice = (event) => {
     const regex = /^[0-9]*$/;
     if (regex.test(event.target.value) || event.target.value === '') {
@@ -89,10 +149,10 @@ const Qrcode = () => {
   useEffect(() => {
     const handleGenerateQRCode = () => {
         const data = {
-            url: imageUrl,
-            name: itemName,
-            price: price,
-            description: productDescription
+            nom: itemName,
+            prix: price,
+            image: imageUrl,
+            id: _id,
         };
         setQrCodeData(data);
     };

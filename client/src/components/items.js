@@ -10,7 +10,10 @@ const Items = () => {
   const calculateTotal = () => {
     let total = 0;
     cartItems.forEach((item) => {
+      // Assurez-vous que l'item est un objet
+      const currentItem = typeof item === 'string' ? JSON.parse(item) : item;
       total += parseFloat(item.prix); // Utilise parseFloat pour convertir en nombre
+      total += parseFloat(currentItem.prix); // Utilise parseFloat pour convertir en nombre
     });
     return total.toFixed(2); // Formatage du total avec 2 décimales
   };
@@ -19,15 +22,19 @@ const Items = () => {
     <Box sx={{ background: '#EEE6D8', display: 'flex', flexDirection: 'column', height: 'calc(100vh - 250px)', alignItems: 'center', marginTop: '3px'}}>
       {/* Section pour afficher les articles scannés avec un scroll */}
       <Box sx={{ overflowY: 'auto', flexGrow: 1, background: '#EEE6D8'}}>
-      {cartItems.map((item, index) => (
-        <div key={index} style={{ display: 'flex', alignItems: 'center', marginTop: '10px', border: '2px solid #e0e0e0', paddingLeft: '10px', paddingRight: '10px'}}>
-          <img src={item.image} alt={`Article ${index}`} style={{ maxWidth: '100px', marginRight: '10px' }} />
-          <div>
-            <p>Nom: {item.nom}</p>
-            <p>Prix: {item.prix}</p>
+      {cartItems.map((item, index) => {
+        // Assurez-vous que l'item est un objet A AJOUTER ABSOLUMENT
+        const currentItem = typeof item === 'string' ? JSON.parse(item) : item;
+        return (
+          <div key={index} style={{ display: 'flex', alignItems: 'center', marginTop: '10px', border: '2px solid #e0e0e0', paddingLeft: '10px', paddingRight: '10px'}}>
+            <img src={currentItem.image} alt={`Article ${index}`} style={{ maxWidth: '100px', marginRight: '10px' }} />
+            <div>
+              <p>Nom: {currentItem.nom}</p>
+              <p>Prix: {currentItem.prix}</p>
+            </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
       </Box>
       <Box
       sx={{

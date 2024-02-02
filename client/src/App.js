@@ -7,6 +7,7 @@ import Order from './components/order';
 import Items from './components/items';
 import Register from './components/register';
 import { CartProvider } from './components/CartContext';
+import Account from './components/account';
 import Admin from './components/admin';
 import Qrcode from './components/qrcode';
 import StockManagement from './components/StockManagement';
@@ -28,6 +29,7 @@ function App() {
         <Route path="/qrcode" element={<Qrcode />} />
         <Route path="/items" element={<Items scannedItems={scannedItems} />} />
         <Route path="/admin" element={<Admin />} />
+        <Route path="/account" element={<Account />} />
         <Route path="/marketplace" element={<MarketPlace />} />
         <Route path="/stock-management" element={<StockManagement />} />
       </Routes>
