@@ -144,6 +144,22 @@ app.get("/api/stock",async(req,res) =>{
 console.log(AHHHHHHHHHHH);
 });
 
+// Dans usersRoutes.js ou un fichier similaire
+app.post('/api/users/:userId/addMoney', async (req, res) => {
+  const { userId } = req.params;
+  const { amount } = req.body; // Montant à ajouter
+
+  try {
+    // Assumer que vous avez une fonction pour mettre à jour le portefeuille de l'utilisateur
+    const updatedUser = await User.updateUserWallet(userId, amount);
+    res.json({ message: 'Solde mis à jour avec succès', wallet: updatedUser.wallet });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Erreur lors de la mise à jour du solde' });
+  }
+});
+
+
 app.use((error, req, res, next) => {
   const statusCode = error.statusCode || 500;
   console.error(error.message, error.stack);

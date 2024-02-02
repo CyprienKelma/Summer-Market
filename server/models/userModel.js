@@ -97,6 +97,30 @@ async function addToCart(userId, item) {
   }
 }
 
+async function updateUserWallet(userId, amount) {
+  try {
+    const db = client.db(); // Assurez-vous d'avoir une instance de MongoClient connectée à votre DB
+    // Convertissez userId en ObjectId si ce n'est pas déjà fait
+    const userObjectId = typeof userId === 'string' ? new ObjectId(userId) : userId;
+
+    // Trouvez l'utilisateur et mettez à jour son portefeuille
+    const result = await db.collection('users').findOneAndUpdate(
+      { _id: userObjectId },
+      { $inc: { wallet: amount } }, // Utilisez $inc pour augmenter le portefeuille de l'utilisateur par le montant
+      { returnDocument: 'after' } // Option pour retourner le document après mise à jour
+    );
+
+    if (result.ok && result.value) {
+      return result.value; // Retourne l'utilisateur mis à jour
+    } else {
+      throw new Error('Utilisateur non trouvé ou mise à jour échouée');
+    }
+  } catch (error) {
+    console.error('Erreur lors de la mise à jour du portefeuille de l\'utilisateur:', error);
+    throw error; // Relancez l'erreur pour la gestion d'erreur externe
+  }
+}
+
 // Exporter la fonction
 module.exports = {
   createAnUser,
@@ -104,5 +128,6 @@ module.exports = {
   findOneById,
   authenticateUser,
   addToCart,
+  updateUserWallet,
   client
 };
