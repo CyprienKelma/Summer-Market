@@ -62,14 +62,11 @@ const Account = () => {
       <h2 style={{ textAlign: 'center', marginTop: '40px' }}>Gestion de l'argent</h2>
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '40px' }}>
         <div style={{ display: 'flex', flexDirection: 'column', marginRight: 'auto', marginLeft: 'auto' }}>
-          <Button variant="contained" color="primary" onClick={handleOpenForm} style={{ marginTop: '40px' }}>
+          <Button variant="contained" color="success" onClick={handleOpenForm} style={{ marginTop: '40px' }}>
             Ajouter de l'argent
           </Button>
-          <Button variant="contained" color="primary" onClick={handleHistorique} style={{ marginTop: '40px' }}>
+          <Button variant="contained" color="primary" onClick={handleHistorique} style={{ marginTop: '40px', backgroundColor: "#daab3a" }}>
             Historique
-          </Button>
-          <Button variant="contained" color="primary" onClick={handleProfil} style={{ marginTop: '40px' }}>
-            Profil
           </Button>
         </div>
       </div>
@@ -87,7 +84,7 @@ const Account = () => {
           />
           <Button
             variant="contained"
-            color="primary"
+            color="success"
             onClick={handleAjouterArgent}
             style={{ marginTop: '10px' }}
           >
