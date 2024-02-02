@@ -23,6 +23,8 @@ body {
     overflow: hidden;
     position: relative;
     max-height: calc(100vh - 100px); /* Ajuste selon tes besoins, en tenant compte de la hauteur des boutons */
+    max-width: 400px; /* Largeur maximale de la caméra */
+    max-height: 400px; /* Hauteur maximale de la caméra */
     padding: 10px; /* Ajoute du padding de chaque côté du cadre carré */
   }
   
