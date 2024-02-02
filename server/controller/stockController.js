@@ -2,7 +2,7 @@
 const Product = require('../models/productModel');
 const User = require('../models/userModel');
 const { ObjectId } = require('mongodb');
-const { createStockItem, adjustStockQuantity, getTheWholeStock} = require('../models/stockModel');
+const { createStockItem, adjustStockQuantity, getTheWholeStock, findOneByProductId} = require('../models/stockModel');
 
 
 const asyncHandler = (fn) => (req, res, next) =>
@@ -27,20 +27,33 @@ const getStockItems = asyncHandler(async (req, res, next) => {
 const addProductToStock = asyncHandler(async (req, res, next) => {
   const { productId, quantity } = req.body;
 
-  // Vous devez vérifier si le productId est valide et si le produit existe.
+  // Vérifier si le productId est valide et si le produit existe
   const product = await Product.findOneById(productId);
   if (!product) {
     return res.status(404).json({ message: 'Product not found' });
   }
 
-  // Ensuite, mettez à jour le stock.
-  const updatedStock = await adjustStockQuantity(productId, quantity);
-  if (updatedStock.modifiedCount === 0) {
-    return res.status(500).json({ message: 'Failed to update stock' });
+  // Vérifier si un élément de stock existe déjà pour ce productId
+  const existingStockItem = await findOneByProductId(productId);
+  
+  // Si un élément de stock existe déjà, mettez à jour la quantité
+  if (existingStockItem) {
+    const updatedStock = await adjustStockQuantity(productId, quantity);
+    if (updatedStock.matchedCount === 0) {
+      return res.status(500).json({ message: 'Failed to update stock' });
+    }
+    res.status(200).json({ message: 'Stock updated', updatedStock });
+  } else {
+    // Sinon, créez un nouvel élément de stock
+    try {
+      const stockId = await createStockItem(productId, quantity);
+      res.status(201).json({ message: 'Stock item created', stockId });
+    } catch (error) {
+      res.status(400).json({ message: error.message });
+    }
   }
-
-  res.status(200).json({ message: 'Stock updated', updatedStock });
 });
+
 
 const updateStockOnPurchase = asyncHandler(async (req, res, next) => {
   const { productId } = req.body;
