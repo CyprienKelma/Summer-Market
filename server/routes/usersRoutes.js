@@ -28,6 +28,6 @@ router.post('/:id/cart', addProductToCart);
 router.delete('/:id/cart', removeProductFromCart);
 
 // Finaliser le paiement
-router.post('/:id/finalize-payment', finalizePayment);
+//router.post('/:id/finalize-payment', finalizePayment);
 
 module.exports = router;
