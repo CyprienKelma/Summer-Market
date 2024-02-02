@@ -59,8 +59,9 @@ export default function Header() {
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static" sx={{ backgroundColor: '#daab3a' }}>
           <Toolbar>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1, color : '#3f576e'}}>
-            Summer Market {email && `: ${email}`} - Solde : {wallet} €
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1, color : '#3f576e', 
+            fontWeight: '700', paddingLeft: '-2px', alignItems: 'left'}}>
+            Summer Market {email && `: ${email}`} | Solde : {wallet}€
             </Typography>
             <IconButton
               size="large"
