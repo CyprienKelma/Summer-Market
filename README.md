@@ -16,7 +16,7 @@ pour ajouter l'article à son panier et ainsi passer sa commande totalement sur 
 - Passage de commande
 - Mise à jour du stock et des paniers en temps réel avec la base de données
 - Ajout de crédit virtuel pour acheter ses produits
-- Génération par IA (API de GPT-3.5-turbo) automatiques des descriptions des nouveaux produits
+- Génération automatiques par IA (API de GPT-3.5-turbo) des descriptions des nouveaux produits
 - Génération de nouveaux produits (et leurs QR codes) depuis la partie admin
 
 ## Capture d'écran :
