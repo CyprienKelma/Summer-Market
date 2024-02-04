@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const { ObjectId } = require('mongodb');
 
 // Configurer les paramètres de connexion à la base de données
-const mongoURI = 'mongodb+srv://dev:dw51C9TsRCY5AsCN@cluster0.gog9niz.mongodb.net';
+const mongoURI = process.env.MONGO_URI;
 
 // Créer une instance du client MongoDB
 const client = new MongoClient(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
