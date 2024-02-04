@@ -61,6 +61,6 @@ Ce dépôt contient à la fois l'appli web (dans le dossier `client`) et le serv
 
 4. Ouvrez le fichier `ipconfig.js` dans `client/src` et modifiez les paramètres en suivant les instructions :
 
-   <img src="images/ipconfig.JPG" alt="ipconfig" width="860"/>
+   <img src="images/configFINAL.JPG" alt="ipconfig" width="800"/>
 
 6. Revenez sur le terminal et lancez le serveur (assurez-vous d'être dans le dossier server) : `npm run start`
