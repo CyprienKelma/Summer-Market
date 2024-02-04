@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import axios from 'axios';
-import config from '../ipconfig';
+const config = require('../ipconfig');
 
 function Login() {
     const navigate = useNavigate();

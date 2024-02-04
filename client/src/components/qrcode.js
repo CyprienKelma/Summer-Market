@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios'; // N'oubliez pas d'importer axios
 import { generateProductDescription } from './API';
 import { FadeLoader } from 'react-spinners';
-import config from '../ipconfig';
+const config = require('../ipconfig');
 
 const Qrcode = () => {
   const navigate = useNavigate();

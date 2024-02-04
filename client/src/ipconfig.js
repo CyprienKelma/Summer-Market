@@ -1,6 +1,6 @@
 module.exports = {
     ipServer: "insert-your-ip-server here or 'localhost' if you are running the server on your local machine",
-    port: "insert-your-port here or 5000 if you are running the server on your local machine",
+    port: "insert-your-port here or 5001 if you are running the server on your local machine",
 }
 
 /* For example, if you are running the server on your local machine, the config object would look like this :
@@ -19,3 +19,12 @@ const config = {
 }
 
 */
+
+
+
+
+
+
+
+
+

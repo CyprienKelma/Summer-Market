@@ -7,7 +7,7 @@ import TextField from '@mui/material/TextField';
 import { useNavigate } from 'react-router-dom'; // Importez useNavigate
 import Header from './header';
 import Footer from './footer';
-import config from '../ipconfig';
+const config = require('../ipconfig');
  
 const Account = () => {
   const [openForm, setOpenForm] = useState(false);

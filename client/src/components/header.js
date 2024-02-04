@@ -9,7 +9,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import config from '../ipconfig';
+const config = require('../ipconfig');
 
 
 export default function Header() {
