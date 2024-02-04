@@ -10,7 +10,7 @@ const Stock = require('./models/stockModel');
 const path = require('path');
 const { ObjectId } = require('mongodb');
 const { getTheWholeStock, findOneById, createAnProduct, addNewProduct, deleteAProduct } = require('./models/productModel');
-
+const config = require('../client/src/ipconfig');
 
 
 
@@ -24,11 +24,11 @@ const certificate = fs.readFileSync('../certif/server.cert', 'utf8');
 const credentials = { key: privateKey, cert: certificate };
 
 const app = express();
-const port = process.env.PORT || 5001;
+const port = config.port || 5001;
 app.use(cors())
 app.use(express.json());
 app.use("/api/users", require("./routes/usersRoutes"));
-app.use('/api/products', require("./routes/productRoutes")); // Utiliser '/api/products' comme base pour les routes de produits
+app.use('/api/products', require("./routes/productRoutes")); // Utilise '/api/products' comme base pour les routes de produits
 app.use('/api/stock', stockRoutes);
 
 

@@ -1,6 +1,7 @@
 // StockManagement.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import config from '../ipconfig';
 
 
 const StockManagement = () => {
@@ -12,7 +13,7 @@ const StockManagement = () => {
     useEffect(() => {
         const fetchStock = async () => {
           try {
-            const response = await axios.get('https://10.224.1.68:5001/api/stock');
+            const response = await axios.get(`https://${config.ipServer}:${config.port}/api/stock`);
             setStockItems(response.data);
           } catch (error) {
             console.error('Erreur lors de la récupération du stock', error);
@@ -21,7 +22,7 @@ const StockManagement = () => {
     
         const fetchProducts = async () => {
           try {
-            const response = await axios.get('https://10.224.1.68:5001/api/products');
+            const response = await axios.get(`https://${config.ipServer}:${config.port}/api/products`);
             setProducts(response.data.products); // Assurez-vous que la réponse contient un tableau de produits
           } catch (error) {
             console.error('Erreur lors de la récupération des produits', error);

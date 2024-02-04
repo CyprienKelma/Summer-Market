@@ -7,6 +7,7 @@ import TextField from '@mui/material/TextField';
 import { useNavigate } from 'react-router-dom'; // Importez useNavigate
 import Header from './header';
 import Footer from './footer';
+import config from '../ipconfig';
  
 const Account = () => {
   const [openForm, setOpenForm] = useState(false);
@@ -26,7 +27,7 @@ const Account = () => {
     const montantAjout = parseFloat(montant); // Assurez-vous que c'est un nombre
   
     try {
-      const response = await fetch(`https://10.224.1.68:5001/api/users/${userId}/addMoney`, {
+      const response = await fetch(`https://${config.ipServer}:${config.port}/api/users/${userId}/addMoney`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

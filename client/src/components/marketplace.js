@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import QRCode from 'qrcode.react';
+import config from '../ipconfig';
 
 
 const MarketPlace = () => {
@@ -12,7 +13,7 @@ const MarketPlace = () => {
     useEffect(() => {
         const fetchProducts = async () => {
           try {
-            const response = await axios.get('https://192.168.1.76:5001/api/products');
+            const response = await axios.get(`https://${config.ipServer}:${config.port}/api/products`);
             setProducts(response.data.products);
             setLoading(false);
           } catch (error) {

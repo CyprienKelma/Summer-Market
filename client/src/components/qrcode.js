@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios'; // N'oubliez pas d'importer axios
 import { generateProductDescription } from './API';
 import { FadeLoader } from 'react-spinners';
+import config from '../ipconfig';
 
 const Qrcode = () => {
   const navigate = useNavigate();
@@ -45,7 +46,7 @@ const Qrcode = () => {
             // let qr =  {
 
             // }
-            const response = await axios.post('https://10.224.1.68:5001/api/products', {
+            const response = await axios.post(`https://${config.ipServer}:${config.port}/api/products`, {
                 image: imageUrl,
                 price: price,
                 name: itemName,

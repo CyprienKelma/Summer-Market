@@ -7,6 +7,7 @@ import axios from 'axios';
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
+import config from '../ipconfig';
 
 const buttonWidth = '250px';
 
@@ -20,7 +21,7 @@ const Order = () => {
     try {
       const userId = localStorage.getItem('userId');
       
-      await axios.post('https://10.224.1.68:5001/api/cart/add', {
+      await axios.post(`https://${config.ipServer}:${config.port}/api/cart/add`, {
         userId,
         item: data
       });

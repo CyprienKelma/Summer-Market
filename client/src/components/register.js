@@ -4,6 +4,7 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import axios from 'axios';
+import config from '../ipconfig';
 
 function Register() {
     const navigate = useNavigate();
@@ -73,7 +74,7 @@ function Register() {
 
         try {
             // Utiliser Axios pour envoyer les données au serveur
-            const response = await axios.post('https://10.224.1.68:5001/api/users', {
+            const response = await axios.post(`https://https://${config.ipServer}:${config.port}/api/users`, {
                 name,
                 email,
                 password,

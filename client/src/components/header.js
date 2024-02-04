@@ -9,6 +9,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import config from '../ipconfig';
 
 
 export default function Header() {
@@ -47,7 +48,7 @@ export default function Header() {
         if (email) {
           try {
             console.log('test');
-            const response = await axios.get(`https://10.224.1.139:5001/api/users/wallet/${email}`);
+            const response = await axios.get(`https://${config.ipServer}:${config.port}/api/users/wallet/${email}`);
             console.log('Réponse de l\'API:', response.data);
             setWallet(response.data.wallet);
           } catch (error) {

@@ -4,6 +4,7 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import axios from 'axios';
+import config from '../ipconfig';
 
 function Login() {
     const navigate = useNavigate();
@@ -22,7 +23,7 @@ function Login() {
         }
 
         try {
-            const response = await axios.post('https://10.224.1.68:5001/login', {
+            const response = await axios.post(`https://${config.ipServer}:${config.port}/login`, {
                 email,
                 password,
             });
