@@ -74,7 +74,7 @@ function Register() {
 
         try {
             // Utiliser Axios pour envoyer les données au serveur
-            const response = await axios.post(`https://https://${config.ipServer}:${config.port}/api/users`, {
+            const response = await axios.post(`https://${config.ipServer}:${config.port}/api/users`, {
                 name,
                 email,
                 password,
